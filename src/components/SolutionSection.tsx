@@ -121,7 +121,7 @@ export function SolutionSection({ copy }: Props) {
             </div>
           </FadeUp>
           <FadeUp delay={0.08}>
-            <h2 className="text-4xl md:text-5xl leading-[1.1] font-bold text-[#0f2419] max-w-[900px] mx-auto tracking-tight">
+            <h2 className="text-3xl md:text-5xl leading-[1.1] font-bold text-[#0f2419] max-w-[900px] mx-auto tracking-tight">
               {copy.title}
             </h2>
           </FadeUp>

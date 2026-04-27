@@ -171,7 +171,7 @@ export function ProblemSection({ copy }: Props) {
               {copy.eyebrow}
             </div>
             
-            <h2 className="text-[2rem] md:text-5xl lg:text-[3.5rem] leading-[1.05] md:leading-[1.1] font-medium mb-6 md:mb-8 tracking-tight">
+            <h2 className="text-2xl md:text-5xl lg:text-[3.5rem] leading-[1.05] md:leading-[1.1] font-medium mb-6 md:mb-8 tracking-tight">
               {copy.title}
               <br />
               <span className="text-white/80">{copy.muted}</span>

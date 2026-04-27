@@ -35,9 +35,25 @@ export const Route = createFileRoute('/')({
 // Staggered hero entry — only plays on mount, not on scroll
 function HeroItem({ children, delay }: { children: React.ReactNode; delay: number }) {
   const shouldReduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleChange = () => setIsMobile(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  if (isMobile || shouldReduceMotion) {
+    return <>{children}</>;
+  }
+
   return (
     <motion.div
-      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: 'translateY(28px)' }}
+      initial={{ opacity: 0, transform: 'translateY(28px)' }}
       animate={{ opacity: 1, transform: 'translateY(0px)' }}
       transition={{ duration: 0.7, delay, ease: [0.23, 1, 0.32, 1] }}
     >
@@ -85,7 +101,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#2c5f4f]/20">
       <SmoothScroll disabled={mobileMenuOpen} />
-      <LanguageSwitcher language={language} onChange={setLanguage} />
+      {!mobileMenuOpen && <LanguageSwitcher language={language} onChange={setLanguage} />}
 
       {/* Navigation */}
       <header className="sticky top-4 z-50 px-4 md:px-6 transition-all duration-300">
@@ -144,26 +160,26 @@ function Home() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-[#0f2419] text-white md:hidden"
+            className="fixed inset-0 z-40 min-h-[100dvh] w-screen max-w-full overflow-hidden overscroll-contain bg-[#0f2419] text-white md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
           >
             <motion.div
-              className="flex h-full flex-col px-6 pb-8 pt-28"
+              className="flex min-h-[100dvh] w-full max-w-full flex-col overflow-hidden px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(7rem+env(safe-area-inset-top))]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18, delay: 0.04, ease: [0.23, 1, 0.32, 1] }}
             >
-              <nav className="flex flex-col gap-2 text-3xl font-semibold tracking-tight">
+              <nav className="flex max-w-full flex-col gap-2 overflow-hidden text-3xl font-semibold tracking-tight">
                 {copy.nav.map((item, index) => (
                   <a
                     key={item}
                     href={navTargets[index]}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="rounded-2xl px-4 py-4 transition-colors hover:bg-white/10"
+                    className="max-w-full rounded-2xl px-4 py-4 transition-colors hover:bg-white/10"
                   >
                     {item}
                   </a>
@@ -197,7 +213,7 @@ function Home() {
 
           {/* Headline */}
           <HeroItem delay={0.12}>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#0f2419] leading-[1.05] mb-6">
+            <h1 className="text-3xl md:text-6xl font-bold tracking-tight text-[#0f2419] leading-[1.05] mb-6">
               {copy.heroTitle[0]}
               <br />
               {copy.heroTitle[1]}
@@ -243,7 +259,7 @@ function Home() {
 
           <div className="relative z-10">
             <FadeUp>
-              <h2 className="text-3xl md:text-4xl leading-tight font-bold text-center text-[#0f2419] mb-12 max-w-[800px] mx-auto tracking-tight">
+              <h2 className="text-2xl md:text-4xl leading-tight font-bold text-center text-[#0f2419] mb-12 max-w-[800px] mx-auto tracking-tight">
                 {copy.trustTitle}
               </h2>
             </FadeUp>

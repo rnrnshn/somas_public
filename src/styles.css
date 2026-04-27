@@ -6,6 +6,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 /* ─── Animation easing tokens (Emil Kowalski) ─── */
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

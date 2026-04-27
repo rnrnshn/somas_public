@@ -146,7 +146,7 @@ export function StackedCardsSection({ copy, cta }: Props) {
           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-gray-300 text-[13px] font-medium tracking-wide mb-6 text-gray-800">
             {copy.eyebrow}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0f2419] max-w-3xl mx-auto tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#0f2419] max-w-3xl mx-auto tracking-tight">
             {copy.title}
           </h2>
         </div>
@@ -182,7 +182,7 @@ export function StackedCardsSection({ copy, cta }: Props) {
                     </div>
                     
                     <h3 className={cn(
-                      "text-3xl leading-[1.1] font-bold mb-6 tracking-tight",
+                      "text-2xl leading-[1.1] font-bold mb-6 tracking-tight",
                       isDark ? "text-white" : "text-[#0f2419]"
                     )}>
                       {localizedCard.headline}
