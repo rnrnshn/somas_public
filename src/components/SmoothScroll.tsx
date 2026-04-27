@@ -1,11 +1,15 @@
 import Lenis from 'lenis'
 import { useEffect } from 'react'
 
-export function SmoothScroll() {
+type Props = {
+  disabled?: boolean
+}
+
+export function SmoothScroll({ disabled = false }: Props) {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    if (prefersReducedMotion) return
+    if (prefersReducedMotion || disabled) return
 
     const lenis = new Lenis({
       anchors: true,
@@ -25,7 +29,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(frame)
       lenis.destroy()
     }
-  }, [])
+  }, [disabled])
 
   return null
 }

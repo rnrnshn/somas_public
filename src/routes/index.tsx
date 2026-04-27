@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
 import { ProblemSection } from '../components/ProblemSection'
 import { SolutionSection } from '../components/SolutionSection'
 import { StackedCardsSection } from '../components/StackedCardsSection'
@@ -10,7 +10,7 @@ import { FadeUp } from '../components/FadeUp'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import { SmoothScroll } from '../components/SmoothScroll'
 import { useState, useEffect } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { siteSeo } from '../lib/seo'
 import { landingCopy, type LandingLanguage } from '../lib/landing-copy'
 
@@ -49,6 +49,7 @@ function HeroItem({ children, delay }: { children: React.ReactNode; delay: numbe
 function Home() {
   const [headerTheme, setHeaderTheme] = useState<'light' | 'dark'>('light')
   const [language, setLanguage] = useState<LandingLanguage>('en')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const copy = landingCopy[language]
 
   useEffect(() => {
@@ -74,9 +75,16 @@ function Home() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#2c5f4f]/20">
-      <SmoothScroll />
+      <SmoothScroll disabled={mobileMenuOpen} />
       <LanguageSwitcher language={language} onChange={setLanguage} />
 
       {/* Navigation */}
@@ -112,13 +120,69 @@ function Home() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#contact" className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] !text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+            <a href="#contact" className="group hidden md:flex px-5 py-2.5 rounded-full bg-[#2c5f4f] !text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors items-center gap-2">
               {copy.cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </a>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              className={`md:hidden w-11 h-11 rounded-full flex items-center justify-center transition-colors ${
+                headerTheme === 'dark'
+                  ? 'bg-white/10 text-white hover:bg-white/15'
+                  : 'bg-[#2c5f4f] text-white hover:bg-[#1e4a3c]'
+              }`}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </header>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-[#0f2419] text-white md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <motion.div
+              className="flex h-full flex-col px-6 pb-8 pt-28"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18, delay: 0.04, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <nav className="flex flex-col gap-2 text-3xl font-semibold tracking-tight">
+                {copy.nav.map((item, index) => (
+                  <a
+                    key={item}
+                    href={navTargets[index]}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="rounded-2xl px-4 py-4 transition-colors hover:bg-white/10"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </nav>
+              <div className="mt-auto">
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group flex w-full items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold !text-[#0f2419] transition-colors hover:bg-[#f0f7f4]"
+                >
+                  {copy.cta}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <main id="overview" className="scroll-mt-28 pt-24 pb-32 px-6">
@@ -151,12 +215,12 @@ function Home() {
 
           {/* CTAs */}
           <HeroItem delay={0.32}>
-            <div className="flex items-center gap-4">
-              <a href="#contact" className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] !text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <a href="#contact" className="group w-full sm:w-auto justify-center px-7 py-3.5 rounded-full bg-[#2c5f4f] !text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
                 {copy.cta}
                 <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
               </a>
-              <a href="#solution" className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
+              <a href="#solution" className="w-full sm:w-auto justify-center px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
                 {copy.secondaryCta}
               </a>
             </div>
