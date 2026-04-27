@@ -116,8 +116,15 @@ export function ProblemSection({ copy }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
     const handleScroll = () => {
       if (!containerRef.current) return;
       const { top, height } = containerRef.current.getBoundingClientRect();
@@ -133,9 +140,14 @@ export function ProblemSection({ copy }: Props) {
       setActiveIndex(Math.min(cards.length - 1, Math.floor(currentProgress * cards.length)));
     };
     
+    handleResize();
+    mediaQuery.addEventListener('change', handleResize);
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -151,27 +163,27 @@ export function ProblemSection({ copy }: Props) {
         )}
         data-theme="dark"
       >
-        <div className="max-w-[1200px] mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 h-full flex flex-col md:flex-row items-start md:items-center justify-start md:justify-between">
           
           {/* Left Side: Text */}
-          <div className="w-full md:w-1/2 pr-0 md:pr-16 z-10 text-white pt-24 md:pt-0">
+          <div className="w-full md:w-1/2 pr-0 md:pr-16 z-10 text-white pt-28 md:pt-0">
             <div className="inline-block px-5 py-1.5 rounded-full border border-white/20 text-xs font-medium tracking-wide mb-8">
               {copy.eyebrow}
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] font-medium mb-8 tracking-tight">
+            <h2 className="text-[2rem] md:text-5xl lg:text-[3.5rem] leading-[1.05] md:leading-[1.1] font-medium mb-6 md:mb-8 tracking-tight">
               {copy.title}
               <br />
               <span className="text-white/80">{copy.muted}</span>
             </h2>
             
-            <p className="text-white/60 text-[17px] leading-relaxed max-w-lg">
+            <p className="text-white/60 text-[16px] md:text-[17px] leading-relaxed max-w-lg">
               {copy.body}
             </p>
           </div>
 
           {/* Right Side: Cards Animation */}
-          <div className="w-full md:w-1/2 h-[50vh] md:h-full relative flex items-center justify-center perspective-[1000px]">
+          <div className="w-full md:w-1/2 h-[44vh] md:h-full relative flex items-start md:items-center justify-start md:justify-center perspective-[1000px] mt-8 md:mt-0 overflow-visible">
             {cards.map((card, index) => {
               // Continuous progress value (0 to 4)
               const progressVal = scrollProgress * (cards.length - 1);
@@ -179,20 +191,22 @@ export function ProblemSection({ copy }: Props) {
               // offset is the distance from the currently active index
               const offset = index - progressVal;
               
-              // Calculate circular arc animation values
-              const translateY = offset * 450; // Increased to add gap between cards
-              const translateX = Math.abs(offset) * 80; // Pushes outwards to create an arc
-              const rotateZ = offset * 12; // Tilts the card
+              const translateY = isMobile ? 0 : offset * 450;
+              const translateX = isMobile ? offset * 340 : Math.abs(offset) * 80;
+              const rotateZ = isMobile ? 0 : offset * 12;
               
-              // Fade out and shrink cards as they move away from center
-              const opacity = Math.max(0, 1 - Math.abs(offset) * 0.7);
-              const scale = Math.max(0.8, 1 - Math.abs(offset) * 0.1);
-              const zIndex = 10 - Math.round(Math.abs(offset));
+              const opacity = isMobile
+                ? Math.max(0, 1 - Math.abs(offset) * 0.45)
+                : Math.max(0, 1 - Math.abs(offset) * 0.7);
+              const scale = isMobile
+                ? Math.max(0.88, 1 - Math.abs(offset) * 0.06)
+                : Math.max(0.8, 1 - Math.abs(offset) * 0.1);
+              const zIndex = isMobile ? index + 10 : 10 - Math.round(Math.abs(offset));
 
               return (
                 <div 
                   key={index}
-                  className="absolute w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
+                  className="absolute left-0 md:left-auto w-[82vw] md:w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-6 md:p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
                   style={{
                     '--problem-accent': accentColors[index],
                     '--problem-accent-soft': `${accentColors[index]}4d`,
@@ -207,11 +221,11 @@ export function ProblemSection({ copy }: Props) {
                   <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                   
                   {/* Decorative visual area */}
-                  <div className="flex-1 relative mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
+                  <div className="flex-1 relative mb-4 md:mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
                     {card.visual}
                   </div>
                   
-                  <p className="text-white/90 text-[19px] font-medium leading-[1.3] relative z-10">
+                  <p className="text-white/90 text-[17px] md:text-[19px] font-medium leading-[1.25] md:leading-[1.3] relative z-10">
                     {copy.cards[index] ?? card.text}
                   </p>
                 </div>
