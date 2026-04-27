@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -11,12 +12,12 @@ const cards = [
     text: "Beneficiary data becomes difficult to validate and update.",
     visual: (
       <div className="flex gap-3 items-end h-full w-full pb-6 opacity-80 px-4">
-        <div className="w-1/4 h-[30%] bg-white/20 rounded-t-md"></div>
-        <div className="w-1/4 h-[50%] bg-white/40 rounded-t-md"></div>
-        <div className="w-1/4 h-[80%] bg-[#2c5f4f] rounded-t-md relative">
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-[#2c5f4f]"></div>
+        <div className="problem-bar w-1/4 bg-white/20 rounded-t-md [--bar-height:30%] [--bar-delay:0ms]"></div>
+        <div className="problem-bar w-1/4 bg-white/40 rounded-t-md [--bar-height:50%] [--bar-delay:140ms]"></div>
+        <div className="problem-bar w-1/4 bg-[var(--problem-accent)] rounded-t-md relative [--bar-height:80%] [--bar-delay:280ms]">
+          <div className="problem-arrow absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-[var(--problem-accent)]"></div>
         </div>
-        <div className="w-1/4 h-[60%] bg-white/20 rounded-t-md"></div>
+        <div className="problem-bar w-1/4 bg-white/20 rounded-t-md [--bar-height:60%] [--bar-delay:420ms]"></div>
       </div>
     )
   },
@@ -24,9 +25,9 @@ const cards = [
     text: "Campaign progress is hard to monitor across regions.",
     visual: (
       <div className="relative w-full h-full flex items-center justify-center opacity-80">
-        <svg viewBox="0 0 100 50" className="w-full h-auto stroke-[#2c5f4f] stroke-[2] fill-none stroke-linecap-round stroke-linejoin-round">
-          <path d="M5,40 Q20,10 35,30 T65,20 T95,10" />
-          <path d="M5,45 Q25,20 40,35 T70,25 T95,5" className="stroke-white/30" />
+        <svg viewBox="0 0 100 50" className="w-full h-auto fill-none stroke-[2] stroke-linecap-round stroke-linejoin-round">
+          <path className="problem-line stroke-[var(--problem-accent)]" pathLength="1" d="M5,40 Q20,10 35,30 T65,20 T95,10" />
+          <path className="problem-line problem-line-muted stroke-white/30" pathLength="1" d="M5,45 Q25,20 40,35 T70,25 T95,5" />
         </svg>
       </div>
     )
@@ -35,9 +36,9 @@ const cards = [
     text: "Payment exceptions are discovered too late.",
     visual: (
       <div className="relative h-full w-full flex items-center justify-center opacity-80">
-        <div className="w-20 h-20 border-4 border-[#2c5f4f]/30 rounded-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-[#2c5f4f] rounded-full border-t-transparent animate-spin flex items-center justify-center">
-             <span className="text-[#2c5f4f] font-bold text-xl animate-none">!</span>
+        <div className="w-20 h-20 border-4 border-[color:var(--problem-accent-soft)] rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent animate-spin flex items-center justify-center">
+             <span className="text-[var(--problem-accent)] font-bold text-xl animate-none">!</span>
           </div>
         </div>
       </div>
@@ -47,11 +48,11 @@ const cards = [
     text: "Field verification is disconnected from backoffice decisions.",
     visual: (
       <div className="flex items-center justify-between h-full w-full opacity-80 px-8">
-        <div className="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
+        <div className="problem-node w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
           <div className="w-6 h-6 rounded-sm bg-white/40"></div>
         </div>
-        <div className="flex-1 h-0.5 border-t-2 border-dashed border-white/20 mx-4"></div>
-        <div className="w-12 h-12 rounded-full bg-[#2c5f4f] flex items-center justify-center shadow-[0_0_15px_rgba(44,95,79,0.5)]">
+        <div className="problem-dash flex-1 h-0.5 border-t-2 border-dashed border-white/20 mx-4"></div>
+        <div className="problem-node problem-node-delay w-12 h-12 rounded-full bg-[var(--problem-accent)] flex items-center justify-center shadow-[0_0_15px_var(--problem-accent-glow)]">
            <div className="w-4 h-4 rounded-full bg-white"></div>
         </div>
       </div>
@@ -65,10 +66,11 @@ const cards = [
           <div 
             key={i} 
             className={cn(
-              "h-8 rounded-sm", 
-              [2, 5, 8, 10].includes(i) ? "bg-[#2c5f4f]" : "bg-white/10",
+              "problem-tile h-8 rounded-sm", 
+              [2, 5, 8, 10].includes(i) ? "bg-[var(--problem-accent)]" : "bg-white/10",
               [1, 4, 9].includes(i) ? "bg-white/30" : ""
             )}
+            style={{ animationDelay: `${i * 90}ms` }}
           ></div>
         ))}
       </div>
@@ -82,6 +84,22 @@ const bgColors = [
   "bg-[#191124]", // Dark Purple
   "bg-[#211815]", // Dark Brown
   "bg-[#0f172a]"  // Slate
+];
+
+const accentColors = [
+  '#2c5f4f',
+  '#ef6f61',
+  '#8b5cf6',
+  '#d08a4d',
+  '#38bdf8',
+];
+
+const accentGlowColors = [
+  'rgba(44,95,79,0.5)',
+  'rgba(239,111,97,0.5)',
+  'rgba(139,92,246,0.5)',
+  'rgba(208,138,77,0.5)',
+  'rgba(56,189,248,0.5)',
 ];
 
 type Props = {
@@ -176,11 +194,14 @@ export function ProblemSection({ copy }: Props) {
                   key={index}
                   className="absolute w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
                   style={{
+                    '--problem-accent': accentColors[index],
+                    '--problem-accent-soft': `${accentColors[index]}4d`,
+                    '--problem-accent-glow': accentGlowColors[index],
                     transform: `translate3d(${translateX}px, ${translateY}px, 0) rotateZ(${rotateZ}deg) scale(${scale})`,
                     opacity: opacity,
                     zIndex: zIndex,
                     willChange: 'transform, opacity',
-                  }}
+                  } as CSSProperties}
                 >
                   {/* Glassy reflection top edge */}
                   <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
