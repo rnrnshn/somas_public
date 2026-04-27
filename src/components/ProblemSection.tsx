@@ -37,7 +37,7 @@ const cards = [
     visual: (
       <div className="relative h-full w-full flex items-center justify-center opacity-80">
         <div className="w-20 h-20 border-4 border-[color:var(--problem-accent-soft)] rounded-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent md:animate-spin flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent animate-spin flex items-center justify-center">
              <span className="text-[var(--problem-accent)] font-bold text-xl animate-none">!</span>
           </div>
         </div>

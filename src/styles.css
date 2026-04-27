@@ -128,17 +128,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  .problem-bar,
-  .problem-arrow,
-  .problem-line,
-  .problem-node,
-  .problem-dash,
-  .problem-tile {
-    animation: none;
-  }
-}
-
 :root {
   --sea-ink: #173a40;
   --sea-ink-soft: #416166;
