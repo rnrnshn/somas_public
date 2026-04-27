@@ -158,7 +158,7 @@ export function StackedCardsSection({ copy, cta }: Props) {
             const isDark = card.theme === 'dark';
             const localizedCard = copy.cards[index] ?? card;
             return (
-              <div key={index} className="relative min-h-[105dvh] md:min-h-0">
+              <div key={index} className="relative min-h-[105dvh] md:contents">
                 <div 
                   className={cn(
                     "sticky top-28 w-full rounded-[40px] p-10 md:p-16 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] border transition-colors duration-300",
