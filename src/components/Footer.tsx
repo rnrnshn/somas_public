@@ -1,41 +1,11 @@
 import { Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
 
-const footerLinks = [
-  {
-    title: 'Platform',
-    links: [
-      ['Overview', '#overview'],
-      ['Problem', '#problem'],
-      ['Solution', '#solution'],
-    ],
-  },
-  {
-    title: 'Capabilities',
-    links: [
-      ['Campaign management', '#capabilities'],
-      ['Field operations', '#capabilities'],
-      ['Savings programs', '#capabilities'],
-    ],
-  },
-  {
-    title: 'Trust',
-    links: [
-      ['Compliance', '#compliance'],
-      ['Audit workflows', '#compliance'],
-      ['Role governance', '#compliance'],
-    ],
-  },
-  {
-    title: 'Contact',
-    links: [
-      ['Request a demo', '#contact'],
-      ['Talk to the team', '#contact'],
-    ],
-  },
-];
-
 type Props = {
   copy: {
+    footerGroups: readonly {
+      title: string
+      links: readonly (readonly [string, string])[]
+    }[]
     footerText: string
   }
 }
@@ -85,7 +55,7 @@ export function Footer({ copy }: Props) {
 
         {/* Middle Section: Links Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
-          {footerLinks.map((group) => (
+          {copy.footerGroups.map((group) => (
             <div key={group.title} className="flex flex-col gap-4">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0f2419]/50">
                 {group.title}

@@ -87,6 +87,39 @@ export const landingCopy = {
       eyebrow: 'Get Started',
       title: 'Run social transfer programs with clarity, control, and confidence.',
     },
+    footerGroups: [
+      {
+        title: 'Platform',
+        links: [
+          ['Overview', '#overview'],
+          ['Problem', '#problem'],
+          ['Solution', '#solution'],
+        ],
+      },
+      {
+        title: 'Capabilities',
+        links: [
+          ['Campaign management', '#capabilities'],
+          ['Field operations', '#capabilities'],
+          ['Savings programs', '#capabilities'],
+        ],
+      },
+      {
+        title: 'Trust',
+        links: [
+          ['Compliance', '#compliance'],
+          ['Audit workflows', '#compliance'],
+          ['Role governance', '#compliance'],
+        ],
+      },
+      {
+        title: 'Contact',
+        links: [
+          ['Request a demo', '#contact'],
+          ['Talk to the team', '#contact'],
+        ],
+      },
+    ],
     footerText:
       'SOMAS is a platform built for secure social transfers, providing infrastructure for large-scale beneficiary payments, field verification, and savings operations. SOMAS supports audit-ready workflows designed for institutions, NGOs, and governments.',
   },
@@ -176,6 +209,39 @@ export const landingCopy = {
       eyebrow: 'Começar',
       title: 'Execute programas de transferências sociais com clareza, controlo e confiança.',
     },
+    footerGroups: [
+      {
+        title: 'Plataforma',
+        links: [
+          ['Visão geral', '#overview'],
+          ['Problema', '#problem'],
+          ['Solução', '#solution'],
+        ],
+      },
+      {
+        title: 'Capacidades',
+        links: [
+          ['Gestão de campanhas', '#capabilities'],
+          ['Operações de campo', '#capabilities'],
+          ['Programas de poupança', '#capabilities'],
+        ],
+      },
+      {
+        title: 'Confiança',
+        links: [
+          ['Conformidade', '#compliance'],
+          ['Fluxos de auditoria', '#compliance'],
+          ['Gestão de permissões', '#compliance'],
+        ],
+      },
+      {
+        title: 'Contacto',
+        links: [
+          ['Solicitar demonstração', '#contact'],
+          ['Falar com a equipa', '#contact'],
+        ],
+      },
+    ],
     footerText:
       'O SOMAS é uma plataforma criada para transferências sociais seguras, oferecendo infraestrutura para pagamentos em larga escala a beneficiários, verificação em campo e operações de poupança. O SOMAS apoia fluxos prontos para auditoria desenhados para instituições, ONGs e governos.',
   },

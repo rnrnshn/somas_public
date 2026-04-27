@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, ChevronRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { ProblemSection } from '../components/ProblemSection'
 import { SolutionSection } from '../components/SolutionSection'
 import { StackedCardsSection } from '../components/StackedCardsSection'
@@ -79,11 +79,6 @@ function Home() {
       <SmoothScroll />
       <LanguageSwitcher language={language} onChange={setLanguage} />
 
-      {/* Top Banner */}
-      <div className="bg-[#f0f7f4] text-xs font-medium py-3 flex justify-center items-center gap-1 cursor-pointer hover:underline text-gray-800">
-        {copy.topBanner} <ChevronRight className="w-3 h-3 ml-0.5" />
-      </div>
-
       {/* Navigation */}
       <header className="sticky top-4 z-50 px-4 md:px-6 transition-all duration-300">
         <div 
@@ -117,7 +112,7 @@ function Home() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="#contact" className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+            <a href="#contact" className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] !text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
               {copy.cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </a>
@@ -157,7 +152,7 @@ function Home() {
           {/* CTAs */}
           <HeroItem delay={0.32}>
             <div className="flex items-center gap-4">
-              <a href="#contact" className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+              <a href="#contact" className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] !text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
                 {copy.cta}
                 <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
               </a>

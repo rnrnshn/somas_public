@@ -217,7 +217,7 @@ export function StackedCardsSection({ copy, cta }: Props) {
 
                     {!localizedCard.links && isDark && (
                       <div className="mt-4">
-                        <button className="px-6 py-3 rounded-full bg-[#34a853] text-[#0f2419] text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
+                        <button className="px-6 py-3 rounded-full bg-[#34a853] text-white text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
                           {cta} <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>

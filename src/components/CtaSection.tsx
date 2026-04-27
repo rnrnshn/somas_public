@@ -66,7 +66,7 @@ export function CtaSection({ copy, cta }: Props) {
           <div className="relative inline-flex">
             {/* Pulse ring — justified: user sees this section rarely/once */}
             <span className="absolute inset-0 rounded-full bg-[#2c5f4f]/30 animate-ping" style={{ animationDuration: '2s' }} />
-            <button className="group relative px-8 py-4 rounded-full bg-[#2c5f4f] text-white text-[16px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2 shadow-[0_4px_14px_0_rgba(44,95,79,0.4)] hover:shadow-[0_6px_20px_rgba(44,95,79,0.25)]">
+            <button className="group relative px-8 py-4 rounded-full bg-[#2c5f4f] !text-white text-[16px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2 shadow-[0_4px_14px_0_rgba(44,95,79,0.4)] hover:shadow-[0_6px_20px_rgba(44,95,79,0.25)]">
               {cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </button>
