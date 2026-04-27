@@ -51,6 +51,62 @@ type Props = {
   }
 }
 
+function SolutionVisual({ activeTab }: { activeTab: number }) {
+  return (
+    <div className="aspect-[4/3] w-full rounded-[32px] md:rounded-[40px] bg-[#f5faf7] border border-[#d4e9df] relative flex items-center justify-center overflow-hidden shadow-[0_20px_50px_rgba(44,95,79,0.08)]">
+      <div className="relative w-full h-full flex items-center justify-center p-8 md:p-12">
+        <div className="absolute inset-0 opacity-20">
+          <svg className="w-full h-full stroke-[#2c5f4f]" fill="none" strokeWidth="1">
+            <path d="M0 20% L30% 20% L30% 50% L70% 50% L70% 80% L100% 80%" />
+            <path d="M0 40% L40% 40% L40% 50%" />
+            <path d="M100 30% L60% 30% L60% 50%" />
+            <path d="M0 70% L20% 70% L20% 50%" />
+            <path d="M100 60% L80% 60% L80% 50%" />
+          </svg>
+        </div>
+
+        <div className="relative z-10 w-36 h-36 md:w-48 md:h-48 bg-white rounded-3xl border-2 border-[#2c5f4f]/20 shadow-xl flex items-center justify-center transition-all duration-500">
+          <div className="w-16 h-16 md:w-20 md:h-20 bg-[#fff5f2] rounded-2xl flex items-center justify-center border border-[#2c5f4f]/10">
+             {(() => {
+                const Icon = features[activeTab].icon;
+                return <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#2c5f4f]" strokeWidth={1.5} />;
+             })()}
+          </div>
+          <div className="absolute inset-0 rounded-3xl border border-[#2c5f4f] animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
+        </div>
+
+        <div className={cn(
+          "absolute top-1/4 left-1/4 w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-100",
+          activeTab % 2 === 0 ? "translate-y-4" : "-translate-y-4"
+        )}>
+           <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+        </div>
+        
+        <div className={cn(
+          "absolute bottom-1/4 left-1/3 w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-200",
+          activeTab % 3 === 0 ? "-translate-x-6" : "translate-x-2"
+        )}>
+           <div className="w-5 h-5 rounded bg-green-500"></div>
+        </div>
+
+        <div className={cn(
+          "absolute top-1/3 right-1/4 w-9 h-9 md:w-10 md:h-10 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-300",
+          activeTab % 2 !== 0 ? "translate-y-6" : "-translate-y-2"
+        )}>
+           <div className="w-3 h-3 rounded-sm bg-purple-500"></div>
+        </div>
+
+        <div className={cn(
+          "absolute bottom-1/3 right-1/3 w-12 h-12 md:w-16 md:h-16 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-150",
+          activeTab === 2 || activeTab === 4 ? "scale-110" : "scale-90"
+        )}>
+           <div className="w-6 h-6 rounded-full border-2 border-yellow-500"></div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function SolutionSection({ copy }: Props) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -130,16 +186,21 @@ export function SolutionSection({ copy }: Props) {
                       <div className="overflow-hidden">
                         <AnimatePresence mode="wait">
                           {isActive && (
-                            <motion.p
+                            <motion.div
                               key={index}
-                              className="text-[17px] text-gray-600 leading-relaxed pr-8"
+                              className="pr-0 md:pr-8"
                               initial={{ opacity: 0, transform: 'translateY(6px)' }}
                               animate={{ opacity: 1, transform: 'translateY(0px)' }}
                               exit={{ opacity: 0, transform: 'translateY(-4px)' }}
                               transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
                             >
-                              {copy.features[index]?.[1] ?? feature.description}
-                            </motion.p>
+                              <p className="text-[17px] text-gray-600 leading-relaxed">
+                                {copy.features[index]?.[1] ?? feature.description}
+                              </p>
+                              <div className="mt-6 block lg:hidden">
+                                <SolutionVisual activeTab={index} />
+                              </div>
+                            </motion.div>
                           )}
                         </AnimatePresence>
                       </div>
@@ -151,66 +212,8 @@ export function SolutionSection({ copy }: Props) {
           </div>
 
           {/* Right Side: Graphic Visualizer */}
-          <div className="w-full lg:w-7/12 sticky top-32">
-            <div className="aspect-[4/3] w-full rounded-[40px] bg-[#f5faf7] border border-[#d4e9df] relative flex items-center justify-center overflow-hidden shadow-[0_20px_50px_rgba(44,95,79,0.08)]">
-              
-              {/* Dynamic Abstract Graphic based on activeTab */}
-              <div className="relative w-full h-full flex items-center justify-center p-12">
-                {/* Connecting lines background (similar to reference) */}
-                <div className="absolute inset-0 opacity-20">
-                  <svg className="w-full h-full stroke-[#2c5f4f]" fill="none" strokeWidth="1">
-                    <path d="M0 20% L30% 20% L30% 50% L70% 50% L70% 80% L100% 80%" />
-                    <path d="M0 40% L40% 40% L40% 50%" />
-                    <path d="M100 30% L60% 30% L60% 50%" />
-                    <path d="M0 70% L20% 70% L20% 50%" />
-                    <path d="M100 60% L80% 60% L80% 50%" />
-                  </svg>
-                </div>
-
-                {/* Central Hub */}
-                <div className="relative z-10 w-48 h-48 bg-white rounded-3xl border-2 border-[#2c5f4f]/20 shadow-xl flex items-center justify-center transition-all duration-500">
-                  <div className="w-20 h-20 bg-[#fff5f2] rounded-2xl flex items-center justify-center border border-[#2c5f4f]/10">
-                     {(() => {
-                        const Icon = features[activeTab].icon;
-                        return <Icon className="w-10 h-10 text-[#2c5f4f]" strokeWidth={1.5} />;
-                     })()}
-                  </div>
-                  
-                  {/* Pulsing rings */}
-                  <div className="absolute inset-0 rounded-3xl border border-[#2c5f4f] animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
-                </div>
-
-                {/* Floating "Nodes" representing integrations/modules */}
-                <div className={cn(
-                  "absolute top-1/4 left-1/4 w-12 h-12 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-100",
-                  activeTab % 2 === 0 ? "translate-y-4" : "-translate-y-4"
-                )}>
-                   <div className="w-4 h-4 rounded-full bg-blue-500"></div>
-                </div>
-                
-                <div className={cn(
-                  "absolute bottom-1/4 left-1/3 w-14 h-14 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-200",
-                  activeTab % 3 === 0 ? "-translate-x-6" : "translate-x-2"
-                )}>
-                   <div className="w-5 h-5 rounded bg-green-500"></div>
-                </div>
-
-                <div className={cn(
-                  "absolute top-1/3 right-1/4 w-10 h-10 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-300",
-                  activeTab % 2 !== 0 ? "translate-y-6" : "-translate-y-2"
-                )}>
-                   <div className="w-3 h-3 rounded-sm bg-purple-500"></div>
-                </div>
-
-                <div className={cn(
-                  "absolute bottom-1/3 right-1/3 w-16 h-16 bg-white rounded-xl shadow-md border border-gray-100 flex items-center justify-center transition-all duration-700 delay-150",
-                  activeTab === 2 || activeTab === 4 ? "scale-110" : "scale-90"
-                )}>
-                   <div className="w-6 h-6 rounded-full border-2 border-yellow-500"></div>
-                </div>
-
-              </div>
-            </div>
+          <div className="hidden lg:block w-full lg:w-7/12 sticky top-32">
+            <SolutionVisual activeTab={activeTab} />
           </div>
 
         </div>
