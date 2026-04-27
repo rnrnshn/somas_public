@@ -1,6 +1,12 @@
 import { Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
 
-export function Footer() {
+type Props = {
+  copy: {
+    footerText: string
+  }
+}
+
+export function Footer({ copy }: Props) {
   return (
     <footer className="bg-[#f0f7f4] text-[#0f2419] pt-20 pb-12 px-4 md:px-6 border-t border-[#c8e0d5]">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
@@ -73,7 +79,7 @@ export function Footer() {
         <div className="flex flex-col gap-4 pt-16 mt-8 border-t border-[#c8e0d5]/50 text-sm text-[#0f2419]/80">
           <p className="font-semibold">© SOMAS 2026</p>
           <p className="leading-relaxed">
-            SOMAS is a platform built for secure social transfers, providing infrastructure for large-scale beneficiary payments, field verification, and savings operations. SOMAS supports audit-ready workflows designed for institutions, NGOs, and governments.
+            {copy.footerText}
           </p>
         </div>
 

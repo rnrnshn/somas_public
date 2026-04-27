@@ -5,7 +5,15 @@ import { useRef } from 'react';
 
 const avatarIds = [47, 33, 12, 44, 22];
 
-export function CtaSection() {
+type Props = {
+  copy: {
+    eyebrow: string
+    title: string
+  }
+  cta: string
+}
+
+export function CtaSection({ copy, cta }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px 0px' });
   const shouldReduceMotion = useReducedMotion();
@@ -16,13 +24,13 @@ export function CtaSection() {
         
         <FadeUp>
           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-gray-300 text-[13px] font-medium tracking-wide mb-8 text-[#0f2419]">
-            Get Started
+            {copy.eyebrow}
           </div>
         </FadeUp>
         
         <FadeUp delay={0.08}>
           <h2 className="text-4xl md:text-5xl font-bold text-[#0f2419] tracking-tight mb-12 leading-[1.05] max-w-3xl">
-            Run social transfer programs with clarity, control, and confidence.
+            {copy.title}
           </h2>
         </FadeUp>
 
@@ -59,7 +67,7 @@ export function CtaSection() {
             {/* Pulse ring — justified: user sees this section rarely/once */}
             <span className="absolute inset-0 rounded-full bg-[#2c5f4f]/30 animate-ping" style={{ animationDuration: '2s' }} />
             <button className="group relative px-8 py-4 rounded-full bg-[#2c5f4f] text-white text-[16px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2 shadow-[0_4px_14px_0_rgba(44,95,79,0.4)] hover:shadow-[0_6px_20px_rgba(44,95,79,0.25)]">
-              Request a demo
+              {cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </button>
           </div>

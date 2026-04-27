@@ -9,6 +9,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
 import appCss from '../styles.css?url'
+import { homeStructuredData, siteSeo } from '../lib/seo'
 
 import type { QueryClient } from '@tanstack/react-query'
 
@@ -27,13 +28,61 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: siteSeo.title,
+      },
+      {
+        name: 'description',
+        content: siteSeo.description,
+      },
+      {
+        name: 'theme-color',
+        content: siteSeo.themeColor,
+      },
+      {
+        name: 'application-name',
+        content: siteSeo.name,
+      },
+      {
+        name: 'apple-mobile-web-app-title',
+        content: siteSeo.name,
+      },
+      {
+        property: 'og:site_name',
+        content: siteSeo.name,
+      },
+      {
+        property: 'og:type',
+        content: 'website',
+      },
+      {
+        property: 'og:locale',
+        content: siteSeo.locale,
+      },
+      {
+        property: 'og:locale:alternate',
+        content: 'pt_PT',
+      },
+      {
+        property: 'og:image',
+        content: siteSeo.image,
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image',
       },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'icon',
+        href: '/favicon.ico',
+      },
+      {
+        rel: 'manifest',
+        href: '/manifest.json',
       },
     ],
   }),
@@ -45,6 +94,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(homeStructuredData),
+          }}
+        />
       </head>
       <body>
         {children}

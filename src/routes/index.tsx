@@ -7,10 +7,27 @@ import { SecuritySection } from '../components/SecuritySection'
 import { CtaSection } from '../components/CtaSection'
 import { Footer } from '../components/Footer'
 import { FadeUp } from '../components/FadeUp'
+import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import { siteSeo } from '../lib/seo'
+import { landingCopy, type LandingLanguage } from '../lib/landing-copy'
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute('/')({
+  head: () => ({
+    meta: [
+      { title: siteSeo.title },
+      { name: 'description', content: siteSeo.description },
+      { property: 'og:title', content: siteSeo.title },
+      { property: 'og:description', content: siteSeo.description },
+      { property: 'og:image', content: siteSeo.image },
+      { name: 'twitter:title', content: siteSeo.title },
+      { name: 'twitter:description', content: siteSeo.description },
+      { name: 'twitter:image', content: siteSeo.image },
+    ],
+  }),
+  component: Home,
+})
 
 // Staggered hero entry — only plays on mount, not on scroll
 function HeroItem({ children, delay }: { children: React.ReactNode; delay: number }) {
@@ -28,6 +45,8 @@ function HeroItem({ children, delay }: { children: React.ReactNode; delay: numbe
 
 function Home() {
   const [headerTheme, setHeaderTheme] = useState<'light' | 'dark'>('light')
+  const [language, setLanguage] = useState<LandingLanguage>('en')
+  const copy = landingCopy[language]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,9 +73,11 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#2c5f4f]/20">
+      <LanguageSwitcher language={language} onChange={setLanguage} />
+
       {/* Top Banner */}
       <div className="bg-[#f0f7f4] text-xs font-medium py-3 flex justify-center items-center gap-1 cursor-pointer hover:underline text-gray-800">
-        We just shipped new features in Q1. See what's new <ChevronRight className="w-3 h-3 ml-0.5" />
+        {copy.topBanner} <ChevronRight className="w-3 h-3 ml-0.5" />
       </div>
 
       {/* Navigation */}
@@ -86,16 +107,14 @@ function Home() {
           <nav className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition-colors ${
             headerTheme === 'dark' ? 'text-white/90' : 'text-[#0f2419]'
           }`}>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Product</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Modules</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Field Operations</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Compliance</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Contact</a>
+            {copy.nav.map((item) => (
+              <a key={item} href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>{item}</a>
+            ))}
           </nav>
 
           <div className="flex items-center gap-3">
             <button className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
-              Request a demo
+              {copy.cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </button>
           </div>
@@ -109,25 +128,25 @@ function Home() {
           {/* Eyebrow Pill */}
           <HeroItem delay={0}>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300/80 text-[13px] font-medium text-gray-800 mb-10 hover:border-gray-400 transition-colors cursor-pointer">
-              Social transfer infrastructure for institutions <ArrowRight className="w-3.5 h-3.5" />
+              {copy.heroEyebrow} <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </HeroItem>
 
           {/* Headline */}
           <HeroItem delay={0.12}>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#0f2419] leading-[1.05] mb-6">
-              Manage social payments,
+              {copy.heroTitle[0]}
               <br />
-              beneficiaries, and savings
+              {copy.heroTitle[1]}
               <br />
-              <span className="text-[#2c5f4f]">in one secure platform.</span>
+              <span className="text-[#2c5f4f]">{copy.heroAccent}</span>
             </h1>
           </HeroItem>
 
           {/* Subheadline */}
           <HeroItem delay={0.22}>
             <p className="text-base md:text-lg text-gray-600 max-w-[800px] mx-auto leading-relaxed mb-10">
-              SOMAS helps governments, NGOs, and implementation partners run large-scale social transfer programs with operational clarity, real-time monitoring, and audit-ready controls.
+              {copy.heroDescription}
             </p>
           </HeroItem>
 
@@ -135,11 +154,11 @@ function Home() {
           <HeroItem delay={0.32}>
             <div className="flex items-center gap-4">
               <button className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
-                Request a demo
+                {copy.cta}
                 <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
               </button>
               <button className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
-                See how it works
+                {copy.secondaryCta}
               </button>
             </div>
           </HeroItem>
@@ -162,29 +181,29 @@ function Home() {
           <div className="relative z-10">
             <FadeUp>
               <h2 className="text-3xl md:text-4xl leading-tight font-bold text-center text-[#0f2419] mb-12 max-w-[800px] mx-auto tracking-tight">
-                Built for structured programs, multi-region operations, and accountable payment delivery.
+                {copy.trustTitle}
               </h2>
             </FadeUp>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <FadeUp delay={0.06}>
                 <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">$ Millions</div>
-                  <div className="text-[15px] font-medium text-gray-800">Total disbursed amount</div>
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">{copy.metrics[0]}</div>
+                  <div className="text-[15px] font-medium text-gray-800">{copy.metricLabels[0]}</div>
                 </div>
               </FadeUp>
 
               <FadeUp delay={0.12}>
                 <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">1M+</div>
-                  <div className="text-[15px] font-medium text-gray-800">Total beneficiaries</div>
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">{copy.metrics[1]}</div>
+                  <div className="text-[15px] font-medium text-gray-800">{copy.metricLabels[1]}</div>
                 </div>
               </FadeUp>
 
               <FadeUp delay={0.18}>
                 <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">100+</div>
-                  <div className="text-[15px] font-medium text-gray-800">Active campaigns</div>
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">{copy.metrics[2]}</div>
+                  <div className="text-[15px] font-medium text-gray-800">{copy.metricLabels[2]}</div>
                 </div>
               </FadeUp>
             </div>
@@ -192,12 +211,12 @@ function Home() {
         </div>
       </section>
 
-      <ProblemSection />
-      <SolutionSection />
-      <StackedCardsSection />
-      <SecuritySection />
-      <CtaSection />
-      <Footer />
+      <ProblemSection copy={copy.problem} />
+      <SolutionSection copy={copy.solution} />
+      <StackedCardsSection copy={copy.stacked} cta={copy.cta} />
+      <SecuritySection copy={copy.compliance} />
+      <CtaSection copy={copy.finalCta} cta={copy.cta} />
+      <Footer copy={copy} />
     </div>
   )
 }

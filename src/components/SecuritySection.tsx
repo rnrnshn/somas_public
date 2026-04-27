@@ -28,7 +28,17 @@ const complianceItems = [
   },
 ];
 
-export function SecuritySection() {
+type Props = {
+  copy: {
+    eyebrow: string
+    title: string
+    body: string
+    cta: string
+    items: readonly string[]
+  }
+}
+
+export function SecuritySection({ copy }: Props) {
   return (
     <section data-theme="dark" className="bg-[#0a1f14] text-white flex justify-center py-20 overflow-hidden relative">
       
@@ -43,25 +53,25 @@ export function SecuritySection() {
 
           <FadeUp>
             <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/20 text-xs font-medium tracking-wide mb-8">
-              Compliance
+              {copy.eyebrow}
             </div>
           </FadeUp>
           
           <FadeUp delay={0.07}>
             <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6 max-w-2xl leading-[1.1]">
-              Accountability is built into the workflow.
+              {copy.title}
             </h2>
           </FadeUp>
 
           <FadeUp delay={0.14}>
             <p className="text-[17px] text-white/70 max-w-2xl mb-10 leading-relaxed">
-              Social transfer operations require more than payment execution. They require evidence, control, and traceability. SOMAS supports audit-ready operations through role-based permissions, activity monitoring, transaction history, verification records, and system event logs.
+              {copy.body}
             </p>
           </FadeUp>
           
           <FadeUp delay={0.21}>
             <button className="group px-6 py-3 rounded-full bg-white text-[#0a1f14] text-[15px] font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2">
-              Learn more
+              {copy.cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </button>
           </FadeUp>
@@ -80,7 +90,7 @@ export function SecuritySection() {
                   {item.svg}
                 </div>
                 <p className="text-[16px] font-medium leading-relaxed text-white/90">
-                  {item.label}
+                  {copy.items[i] ?? item.label}
                 </p>
               </div>
             </FadeUp>

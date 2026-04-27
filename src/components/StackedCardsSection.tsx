@@ -121,7 +121,22 @@ const cards = [
   }
 ];
 
-export function StackedCardsSection() {
+type Props = {
+  copy: {
+    eyebrow: string
+    title: string
+    explore: string
+    cards: readonly {
+      pill: string
+      headline: string
+      body: string
+      links?: readonly string[]
+    }[]
+  }
+  cta: string
+}
+
+export function StackedCardsSection({ copy, cta }: Props) {
   return (
     <section className="py-24 px-4 md:px-6 bg-white relative">
       <div className="max-w-[1200px] mx-auto">
@@ -129,10 +144,10 @@ export function StackedCardsSection() {
         {/* Section Intro */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-gray-300 text-[13px] font-medium tracking-wide mb-6 text-gray-800">
-            Core Capabilities
+            {copy.eyebrow}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-[#0f2419] max-w-3xl mx-auto tracking-tight">
-            Infrastructure for accountable social transfers
+            {copy.title}
           </h2>
         </div>
 
@@ -141,6 +156,7 @@ export function StackedCardsSection() {
         <div className="relative pb-[20vh] flex flex-col gap-4">
           {cards.map((card, index) => {
             const isDark = card.theme === 'dark';
+            const localizedCard = copy.cards[index] ?? card;
             return (
               <div 
                 key={index}
@@ -162,33 +178,33 @@ export function StackedCardsSection() {
                       "inline-flex items-center px-4 py-1 rounded-full border text-[12px] font-medium tracking-wide mb-8 w-fit",
                       isDark ? "border-white/20 text-white/80" : "border-gray-300 text-gray-800"
                     )}>
-                      {card.pill}
+                      {localizedCard.pill}
                     </div>
                     
                     <h3 className={cn(
                       "text-3xl leading-[1.1] font-bold mb-6 tracking-tight",
                       isDark ? "text-white" : "text-[#0f2419]"
                     )}>
-                      {card.headline}
+                      {localizedCard.headline}
                     </h3>
                     
                     <p className={cn(
                       "text-[17px] leading-relaxed mb-10 max-w-lg",
                       isDark ? "text-white/70" : "text-gray-600"
                     )}>
-                      {card.body}
+                      {localizedCard.body}
                     </p>
 
-                    {card.links && (
+                    {localizedCard.links && (
                       <div>
                         <p className={cn(
                           "text-[15px] font-semibold mb-4",
                           isDark ? "text-white/90" : "text-[#0f2419]"
                         )}>
-                          Explore the suite
+                          {copy.explore}
                         </p>
                         <ul className="flex flex-col gap-3">
-                          {card.links.map((link, i) => (
+                          {localizedCard.links.map((link, i) => (
                             <li key={i}>
                               <a href="#" className="inline-flex items-center gap-2 text-[#2c5f4f] font-medium text-[15px] hover:text-[#1e4a3c] transition-colors">
                                 {link} <ArrowRight className="w-3.5 h-3.5" />
@@ -199,10 +215,10 @@ export function StackedCardsSection() {
                       </div>
                     )}
 
-                    {!card.links && isDark && (
+                    {!localizedCard.links && isDark && (
                       <div className="mt-4">
                         <button className="px-6 py-3 rounded-full bg-[#34a853] text-[#0f2419] text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
-                          Request a demo <ArrowRight className="w-4 h-4" />
+                          {cta} <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>
                     )}

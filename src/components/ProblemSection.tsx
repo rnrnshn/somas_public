@@ -84,7 +84,17 @@ const bgColors = [
   "bg-[#0f172a]"  // Slate
 ];
 
-export function ProblemSection() {
+type Props = {
+  copy: {
+    eyebrow: string
+    title: string
+    muted: string
+    body: string
+    cards: readonly string[]
+  }
+}
+
+export function ProblemSection({ copy }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -128,17 +138,17 @@ export function ProblemSection() {
           {/* Left Side: Text */}
           <div className="w-full md:w-1/2 pr-0 md:pr-16 z-10 text-white pt-24 md:pt-0">
             <div className="inline-block px-5 py-1.5 rounded-full border border-white/20 text-xs font-medium tracking-wide mb-8">
-              The Problem
+              {copy.eyebrow}
             </div>
             
             <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.1] font-medium mb-8 tracking-tight">
-              Businesses only move as fast as their money.
+              {copy.title}
               <br />
-              <span className="text-white/80">But today, money moves in silos.</span>
+              <span className="text-white/80">{copy.muted}</span>
             </h2>
             
             <p className="text-white/60 text-[17px] leading-relaxed max-w-lg">
-              Payments are fragmented. Teams speak different languages. SOMAS is the foundation that connects it all, giving you the freedom to expand faster, streamline operations, and capture new opportunities.
+              {copy.body}
             </p>
           </div>
 
@@ -181,7 +191,7 @@ export function ProblemSection() {
                   </div>
                   
                   <p className="text-white/90 text-[19px] font-medium leading-[1.3] relative z-10">
-                    {card.text}
+                    {copy.cards[index] ?? card.text}
                   </p>
                 </div>
               );

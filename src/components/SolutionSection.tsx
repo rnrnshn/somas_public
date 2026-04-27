@@ -42,7 +42,16 @@ const features = [
   }
 ];
 
-export function SolutionSection() {
+type Props = {
+  copy: {
+    eyebrow: string
+    title: string
+    body: string
+    features: readonly (readonly [string, string])[]
+  }
+}
+
+export function SolutionSection({ copy }: Props) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -52,17 +61,17 @@ export function SolutionSection() {
         <div className="text-center mb-24">
           <FadeUp>
             <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-gray-300 text-[13px] font-medium tracking-wide mb-8 text-gray-800">
-              The Solution
+              {copy.eyebrow}
             </div>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h2 className="text-4xl md:text-5xl leading-[1.1] font-bold text-[#0f2419] max-w-[900px] mx-auto tracking-tight">
-              SOMAS brings the full social transfer operation into one controlled workflow.
+              {copy.title}
             </h2>
           </FadeUp>
           <FadeUp delay={0.14}>
             <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-              From campaign setup to payment monitoring, SOMAS gives teams a single operating layer for planning, executing, verifying, and reporting social payment programs.
+              {copy.body}
             </p>
           </FadeUp>
         </div>
@@ -108,7 +117,7 @@ export function SolutionSection() {
                         isActive ? "text-[#0f2419]" : "text-gray-400 group-hover:text-gray-600"
                       )}
                     >
-                      {feature.title}
+                      {copy.features[index]?.[0] ?? feature.title}
                     </h3>
                     
                     <div 
@@ -129,7 +138,7 @@ export function SolutionSection() {
                               exit={{ opacity: 0, transform: 'translateY(-4px)' }}
                               transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
                             >
-                              {feature.description}
+                              {copy.features[index]?.[1] ?? feature.description}
                             </motion.p>
                           )}
                         </AnimatePresence>
