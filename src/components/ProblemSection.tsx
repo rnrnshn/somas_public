@@ -115,6 +115,7 @@ type Props = {
 export function ProblemSection({ copy }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -163,11 +164,13 @@ export function ProblemSection({ copy }: Props) {
     </div>
   );
 
-  const mobileCards = cards.map((card, index) => renderCard(
-    card,
-    index,
-    'relative shrink-0 w-[82vw] max-w-[340px] aspect-[4/3]'
-  ));
+  const goToPreviousMobileCard = () => {
+    setMobileActiveIndex((index) => (index === 0 ? cards.length - 1 : index - 1));
+  };
+
+  const goToNextMobileCard = () => {
+    setMobileActiveIndex((index) => (index === cards.length - 1 ? 0 : index + 1));
+  };
 
   return (
     <div 
@@ -175,7 +178,13 @@ export function ProblemSection({ copy }: Props) {
       // 500vh ensures a long scroll area for the 5 cards
       className="relative w-full md:h-[500vh]"
     >
-      <div className="block md:hidden bg-[#111e18] text-white px-6 py-24" data-theme="dark">
+      <div
+        className={cn(
+          "block md:hidden min-h-[100dvh] text-white px-6 pt-28 pb-[calc(5.5rem+env(safe-area-inset-bottom))] transition-colors duration-500",
+          bgColors[mobileActiveIndex] || bgColors[0]
+        )}
+        data-theme="dark"
+      >
         <div className="inline-block px-5 py-1.5 rounded-full border border-white/20 text-xs font-medium tracking-wide mb-8">
           {copy.eyebrow}
         </div>
@@ -187,12 +196,49 @@ export function ProblemSection({ copy }: Props) {
         <p className="text-white/60 text-[16px] leading-relaxed max-w-lg mb-10">
           {copy.body}
         </p>
-        <div className="flex w-full max-w-full gap-5 overflow-x-auto overscroll-x-contain pb-4 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {mobileCards.map((card) => (
-            <div key={card.key} className="snap-start">
-              {card}
+
+        <div className="w-full max-w-[360px]">
+          {renderCard(
+            cards[mobileActiveIndex],
+            mobileActiveIndex,
+            'relative w-full aspect-[4/3]'
+          )}
+
+          <div className="mt-5 flex items-center justify-between gap-4">
+            <button
+              type="button"
+              onClick={goToPreviousMobileCard}
+              className="h-11 w-11 rounded-full border border-white/20 text-xl text-white transition-colors hover:bg-white/10"
+              aria-label="Previous problem card"
+            >
+              ←
+            </button>
+
+            <div className="flex items-center gap-2" aria-label="Problem cards">
+              {cards.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setMobileActiveIndex(index)}
+                  className={cn(
+                    "h-2.5 rounded-full transition-all",
+                    index === mobileActiveIndex ? "w-8 bg-white" : "w-2.5 bg-white/30"
+                  )}
+                  aria-label={`Show problem card ${index + 1}`}
+                  aria-current={index === mobileActiveIndex ? 'true' : undefined}
+                />
+              ))}
             </div>
-          ))}
+
+            <button
+              type="button"
+              onClick={goToNextMobileCard}
+              className="h-11 w-11 rounded-full border border-white/20 text-xl text-white transition-colors hover:bg-white/10"
+              aria-label="Next problem card"
+            >
+              →
+            </button>
+          </div>
         </div>
       </div>
 

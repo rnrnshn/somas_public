@@ -13,7 +13,7 @@ const cards = [
     body: "SOMAS supports multi-tenant operations, allowing each institution or program owner to manage its own campaigns, beneficiaries, branding, metrics, and users within a separated operating environment.",
     links: ["Separate workspaces", "Tenant-level dashboards", "Specific users & permissions", "Campaign isolation"],
     theme: "light",
-    topOffset: "top-[100px]",
+    topOffset: "md:top-[100px]",
     visual: (
       <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         {/* Abstract representation of multiple workspaces */}
@@ -43,7 +43,7 @@ const cards = [
     body: "SOMAS gives teams a clear view of what is happening across campaigns, regions, beneficiaries, and payment flows.",
     links: ["Active campaigns", "Successful & pending transactions", "Savings participation", "Field verification progress"],
     theme: "light",
-    topOffset: "top-[140px]",
+    topOffset: "md:top-[140px]",
     visual: (
       <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         <div className="w-full max-w-[320px] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden p-5 gap-4">
@@ -77,7 +77,7 @@ const cards = [
     body: "The field operations experience is built for enumerators and inquirers working directly with communities. It keeps workflows focused, mobile-first, and practical for real operating conditions.",
     links: ["Search beneficiaries", "Review profiles", "Confirm presence", "Sync activity"],
     theme: "light",
-    topOffset: "top-[180px]",
+    topOffset: "md:top-[180px]",
     visual: (
       <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         {/* Mobile App Representation */}
@@ -103,7 +103,7 @@ const cards = [
     headline: "For teams responsible for accountable social payments.",
     body: "SOMAS is built for institutions and partners that need to deliver funds, monitor execution, and prove accountability across large beneficiary populations.",
     theme: "dark",
-    topOffset: "top-[220px]",
+    topOffset: "md:top-[220px]",
     visual: (
       <div className="w-full h-full bg-[#111c15] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-white/5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#2c5f4f]/10 to-transparent"></div>
@@ -158,77 +158,78 @@ export function StackedCardsSection({ copy, cta }: Props) {
             const isDark = card.theme === 'dark';
             const localizedCard = copy.cards[index] ?? card;
             return (
-              <div 
-                key={index}
-                className={cn(
-                  "sticky w-full rounded-[40px] p-10 md:p-16 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] border transition-colors duration-300",
-                  card.topOffset,
-                  isDark ? "bg-[#111c15] border-gray-800" : "bg-white border-[#d4e9df]"
-                )}
-                data-theme={card.theme === 'dark' ? 'dark' : 'light'}
-                style={{
-                  zIndex: index + 10
-                }}
-              >
-                <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 h-full">
-                  
-                  {/* Left Content */}
-                  <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                    <div className={cn(
-                      "inline-flex items-center px-4 py-1 rounded-full border text-[12px] font-medium tracking-wide mb-8 w-fit",
-                      isDark ? "border-white/20 text-white/80" : "border-gray-300 text-gray-800"
-                    )}>
-                      {localizedCard.pill}
+              <div key={index} className="relative min-h-[105dvh] md:min-h-0">
+                <div 
+                  className={cn(
+                    "sticky top-28 w-full rounded-[40px] p-10 md:p-16 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] border transition-colors duration-300",
+                    card.topOffset,
+                    isDark ? "bg-[#111c15] border-gray-800" : "bg-white border-[#d4e9df]"
+                  )}
+                  data-theme={card.theme === 'dark' ? 'dark' : 'light'}
+                  style={{
+                    zIndex: index + 10
+                  }}
+                >
+                  <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 h-full">
+                    
+                    {/* Left Content */}
+                    <div className="w-full lg:w-1/2 flex flex-col justify-center">
+                      <div className={cn(
+                        "inline-flex items-center px-4 py-1 rounded-full border text-[12px] font-medium tracking-wide mb-8 w-fit",
+                        isDark ? "border-white/20 text-white/80" : "border-gray-300 text-gray-800"
+                      )}>
+                        {localizedCard.pill}
+                      </div>
+                      
+                      <h3 className={cn(
+                        "text-2xl leading-[1.1] font-bold mb-6 tracking-tight",
+                        isDark ? "text-white" : "text-[#0f2419]"
+                      )}>
+                        {localizedCard.headline}
+                      </h3>
+                      
+                      <p className={cn(
+                        "text-[17px] leading-relaxed mb-10 max-w-lg",
+                        isDark ? "text-white/70" : "text-gray-600"
+                      )}>
+                        {localizedCard.body}
+                      </p>
+
+                      {localizedCard.links && (
+                        <div>
+                          <p className={cn(
+                            "text-[15px] font-semibold mb-4",
+                            isDark ? "text-white/90" : "text-[#0f2419]"
+                          )}>
+                            {copy.explore}
+                          </p>
+                          <ul className="flex flex-col gap-3">
+                            {localizedCard.links.map((link, i) => (
+                              <li key={i}>
+                                <a href="#" className="inline-flex items-center gap-2 text-[#2c5f4f] font-medium text-[15px] hover:text-[#1e4a3c] transition-colors">
+                                  {link} <ArrowRight className="w-3.5 h-3.5" />
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {!localizedCard.links && isDark && (
+                        <div className="mt-4">
+                          <button className="px-6 py-3 rounded-full bg-[#34a853] text-white text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
+                            {cta} <ArrowRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Right Graphic */}
+                    <div className="w-full lg:w-1/2 flex items-center justify-center min-h-[300px]">
+                      {card.visual}
                     </div>
                     
-                    <h3 className={cn(
-                      "text-2xl leading-[1.1] font-bold mb-6 tracking-tight",
-                      isDark ? "text-white" : "text-[#0f2419]"
-                    )}>
-                      {localizedCard.headline}
-                    </h3>
-                    
-                    <p className={cn(
-                      "text-[17px] leading-relaxed mb-10 max-w-lg",
-                      isDark ? "text-white/70" : "text-gray-600"
-                    )}>
-                      {localizedCard.body}
-                    </p>
-
-                    {localizedCard.links && (
-                      <div>
-                        <p className={cn(
-                          "text-[15px] font-semibold mb-4",
-                          isDark ? "text-white/90" : "text-[#0f2419]"
-                        )}>
-                          {copy.explore}
-                        </p>
-                        <ul className="flex flex-col gap-3">
-                          {localizedCard.links.map((link, i) => (
-                            <li key={i}>
-                              <a href="#" className="inline-flex items-center gap-2 text-[#2c5f4f] font-medium text-[15px] hover:text-[#1e4a3c] transition-colors">
-                                {link} <ArrowRight className="w-3.5 h-3.5" />
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {!localizedCard.links && isDark && (
-                      <div className="mt-4">
-                        <button className="px-6 py-3 rounded-full bg-[#34a853] text-white text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
-                          {cta} <ArrowRight className="w-4 h-4" />
-                        </button>
-                      </div>
-                    )}
                   </div>
-
-                  {/* Right Graphic */}
-                  <div className="w-full lg:w-1/2 flex items-center justify-center min-h-[300px]">
-                    {card.visual}
-                  </div>
-                  
                 </div>
               </div>
             );
