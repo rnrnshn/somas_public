@@ -15,7 +15,7 @@ const cards = [
     theme: "light",
     topOffset: "top-[100px]",
     visual: (
-      <div className="w-full h-full bg-[#fcf9f7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#f5e3d7]">
+      <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         {/* Abstract representation of multiple workspaces */}
         <div className="relative w-full max-w-[300px] aspect-square">
           <div className="absolute top-0 right-0 w-[80%] h-[80%] bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col p-4 opacity-50 translate-x-4 -translate-y-4">
@@ -23,7 +23,7 @@ const cards = [
              <div className="w-full flex-1 bg-gray-100 rounded-lg"></div>
           </div>
           <div className="absolute bottom-0 left-0 w-[80%] h-[80%] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col p-4 z-10">
-             <div className="w-1/2 h-3 bg-[#ff6b4a]/30 rounded-full mb-4"></div>
+             <div className="w-1/2 h-3 bg-[#2c5f4f]/30 rounded-full mb-4"></div>
              <div className="w-full h-12 bg-gray-50 rounded-lg mb-2 flex items-center px-3 gap-2">
                <div className="w-6 h-6 rounded-full bg-blue-100"></div>
                <div className="w-16 h-2 bg-gray-200 rounded-full"></div>
@@ -45,7 +45,7 @@ const cards = [
     theme: "light",
     topOffset: "top-[140px]",
     visual: (
-      <div className="w-full h-full bg-[#fcf9f7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#f5e3d7]">
+      <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         <div className="w-full max-w-[320px] bg-white rounded-2xl shadow-xl border border-gray-100 flex flex-col overflow-hidden p-5 gap-4">
           <div className="flex items-center justify-between border-b border-gray-100 pb-4">
             <div className="flex flex-col gap-1">
@@ -62,7 +62,7 @@ const cards = [
               <div key={i} className="flex-1 bg-gray-100 rounded-t-sm relative group transition-all">
                 <div 
                   className="absolute bottom-0 w-full rounded-t-sm transition-all duration-500"
-                  style={{ height: `${h}%`, backgroundColor: i === 5 ? '#ff6b4a' : '#cbd5e1' }}
+                  style={{ height: `${h}%`, backgroundColor: i === 5 ? '#2c5f4f' : '#cbd5e1' }}
                 ></div>
               </div>
             ))}
@@ -79,7 +79,7 @@ const cards = [
     theme: "light",
     topOffset: "top-[180px]",
     visual: (
-      <div className="w-full h-full bg-[#fcf9f7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#f5e3d7]">
+      <div className="w-full h-full bg-[#f5faf7] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-[#d4e9df]">
         {/* Mobile App Representation */}
         <div className="w-[200px] h-[400px] bg-white rounded-[32px] shadow-2xl border-4 border-gray-800 flex flex-col overflow-hidden relative z-10">
           <div className="h-6 w-full flex justify-center pt-2">
@@ -89,10 +89,10 @@ const cards = [
             <div className="w-3/4 h-6 bg-gray-800 rounded-lg"></div>
             <div className="w-full h-32 bg-gray-100 rounded-xl mt-2 flex items-center justify-center">
               <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center">
-                <div className="w-4 h-4 bg-[#ff6b4a] rounded-full"></div>
+                <div className="w-4 h-4 bg-[#2c5f4f] rounded-full"></div>
               </div>
             </div>
-            <div className="w-full h-10 bg-[#ff6b4a] rounded-xl mt-auto"></div>
+            <div className="w-full h-10 bg-[#2c5f4f] rounded-xl mt-auto"></div>
           </div>
         </div>
       </div>
@@ -105,13 +105,13 @@ const cards = [
     theme: "dark",
     topOffset: "top-[220px]",
     visual: (
-      <div className="w-full h-full bg-[#1e2025] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-white/5">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#ff6b4a]/10 to-transparent"></div>
+      <div className="w-full h-full bg-[#111c15] rounded-[32px] p-8 relative overflow-hidden flex items-center justify-center border border-white/5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2c5f4f]/10 to-transparent"></div>
         <div className="relative z-10 w-full max-w-[300px] aspect-video border border-white/10 rounded-2xl bg-white/5 flex items-center justify-center backdrop-blur-sm">
           <div className="flex gap-4 items-end h-1/2">
-            <div className="w-8 bg-[#ff6b4a]/60 rounded-t-sm h-[40%]"></div>
-            <div className="w-8 bg-[#ff6b4a]/80 rounded-t-sm h-[70%]"></div>
-            <div className="w-8 bg-[#ff6b4a] rounded-t-sm h-full relative">
+            <div className="w-8 bg-[#2c5f4f]/60 rounded-t-sm h-[40%]"></div>
+            <div className="w-8 bg-[#2c5f4f]/80 rounded-t-sm h-[70%]"></div>
+            <div className="w-8 bg-[#2c5f4f] rounded-t-sm h-full relative">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-white font-bold text-sm">↑</div>
             </div>
           </div>
@@ -131,7 +131,7 @@ export function StackedCardsSection() {
           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-gray-300 text-[13px] font-medium tracking-wide mb-6 text-gray-800">
             Core Capabilities
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-[#2b1411] max-w-3xl mx-auto tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0f2419] max-w-3xl mx-auto tracking-tight">
             Infrastructure for accountable social transfers
           </h2>
         </div>
@@ -147,7 +147,7 @@ export function StackedCardsSection() {
                 className={cn(
                   "sticky w-full rounded-[40px] p-10 md:p-16 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] border transition-colors duration-300",
                   card.topOffset,
-                  isDark ? "bg-[#181a1f] border-gray-800" : "bg-white border-[#f5e3d7]"
+                  isDark ? "bg-[#111c15] border-gray-800" : "bg-white border-[#d4e9df]"
                 )}
                 data-theme={card.theme === 'dark' ? 'dark' : 'light'}
                 style={{
@@ -167,7 +167,7 @@ export function StackedCardsSection() {
                     
                     <h3 className={cn(
                       "text-3xl leading-[1.1] font-bold mb-6 tracking-tight",
-                      isDark ? "text-white" : "text-[#2b1411]"
+                      isDark ? "text-white" : "text-[#0f2419]"
                     )}>
                       {card.headline}
                     </h3>
@@ -183,14 +183,14 @@ export function StackedCardsSection() {
                       <div>
                         <p className={cn(
                           "text-[15px] font-semibold mb-4",
-                          isDark ? "text-white/90" : "text-[#2b1411]"
+                          isDark ? "text-white/90" : "text-[#0f2419]"
                         )}>
                           Explore the suite
                         </p>
                         <ul className="flex flex-col gap-3">
                           {card.links.map((link, i) => (
                             <li key={i}>
-                              <a href="#" className="inline-flex items-center gap-2 text-[#ff6b4a] font-medium text-[15px] hover:text-[#f05c3c] transition-colors">
+                              <a href="#" className="inline-flex items-center gap-2 text-[#2c5f4f] font-medium text-[15px] hover:text-[#1e4a3c] transition-colors">
                                 {link} <ArrowRight className="w-3.5 h-3.5" />
                               </a>
                             </li>
@@ -201,7 +201,7 @@ export function StackedCardsSection() {
 
                     {!card.links && isDark && (
                       <div className="mt-4">
-                        <button className="px-6 py-3 rounded-full bg-[#ab90f2] text-[#1e1335] text-[15px] font-semibold hover:bg-[#9a7dec] transition-colors flex items-center gap-2">
+                        <button className="px-6 py-3 rounded-full bg-[#34a853] text-[#0f2419] text-[15px] font-semibold hover:bg-[#2a9145] transition-colors flex items-center gap-2">
                           Request a demo <ArrowRight className="w-4 h-4" />
                         </button>
                       </div>

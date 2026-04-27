@@ -13,8 +13,8 @@ const cards = [
       <div className="flex gap-3 items-end h-full w-full pb-6 opacity-80 px-4">
         <div className="w-1/4 h-[30%] bg-white/20 rounded-t-md"></div>
         <div className="w-1/4 h-[50%] bg-white/40 rounded-t-md"></div>
-        <div className="w-1/4 h-[80%] bg-[#ff6b4a] rounded-t-md relative">
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-[#ff6b4a]"></div>
+        <div className="w-1/4 h-[80%] bg-[#2c5f4f] rounded-t-md relative">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-[#2c5f4f]"></div>
         </div>
         <div className="w-1/4 h-[60%] bg-white/20 rounded-t-md"></div>
       </div>
@@ -24,7 +24,7 @@ const cards = [
     text: "Campaign progress is hard to monitor across regions.",
     visual: (
       <div className="relative w-full h-full flex items-center justify-center opacity-80">
-        <svg viewBox="0 0 100 50" className="w-full h-auto stroke-[#ff6b4a] stroke-[2] fill-none stroke-linecap-round stroke-linejoin-round">
+        <svg viewBox="0 0 100 50" className="w-full h-auto stroke-[#2c5f4f] stroke-[2] fill-none stroke-linecap-round stroke-linejoin-round">
           <path d="M5,40 Q20,10 35,30 T65,20 T95,10" />
           <path d="M5,45 Q25,20 40,35 T70,25 T95,5" className="stroke-white/30" />
         </svg>
@@ -35,9 +35,9 @@ const cards = [
     text: "Payment exceptions are discovered too late.",
     visual: (
       <div className="relative h-full w-full flex items-center justify-center opacity-80">
-        <div className="w-20 h-20 border-4 border-[#ff6b4a]/30 rounded-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-[#ff6b4a] rounded-full border-t-transparent animate-spin flex items-center justify-center">
-             <span className="text-[#ff6b4a] font-bold text-xl animate-none">!</span>
+        <div className="w-20 h-20 border-4 border-[#2c5f4f]/30 rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-[#2c5f4f] rounded-full border-t-transparent animate-spin flex items-center justify-center">
+             <span className="text-[#2c5f4f] font-bold text-xl animate-none">!</span>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ const cards = [
           <div className="w-6 h-6 rounded-sm bg-white/40"></div>
         </div>
         <div className="flex-1 h-0.5 border-t-2 border-dashed border-white/20 mx-4"></div>
-        <div className="w-12 h-12 rounded-full bg-[#ff6b4a] flex items-center justify-center shadow-[0_0_15px_rgba(255,107,74,0.5)]">
+        <div className="w-12 h-12 rounded-full bg-[#2c5f4f] flex items-center justify-center shadow-[0_0_15px_rgba(44,95,79,0.5)]">
            <div className="w-4 h-4 rounded-full bg-white"></div>
         </div>
       </div>
@@ -66,7 +66,7 @@ const cards = [
             key={i} 
             className={cn(
               "h-8 rounded-sm", 
-              [2, 5, 8, 10].includes(i) ? "bg-[#ff6b4a]" : "bg-white/10",
+              [2, 5, 8, 10].includes(i) ? "bg-[#2c5f4f]" : "bg-white/10",
               [1, 4, 9].includes(i) ? "bg-white/30" : ""
             )}
           ></div>
@@ -164,7 +164,7 @@ export function ProblemSection() {
               return (
                 <div 
                   key={index}
-                  className="absolute w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#24252a] border border-white/5"
+                  className="absolute w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
                   style={{
                     transform: `translate3d(${translateX}px, ${translateY}px, 0) rotateZ(${rotateZ}deg) scale(${scale})`,
                     opacity: opacity,

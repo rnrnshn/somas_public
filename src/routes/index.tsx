@@ -6,9 +6,25 @@ import { StackedCardsSection } from '../components/StackedCardsSection'
 import { SecuritySection } from '../components/SecuritySection'
 import { CtaSection } from '../components/CtaSection'
 import { Footer } from '../components/Footer'
+import { FadeUp } from '../components/FadeUp'
 import { useState, useEffect } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 
 export const Route = createFileRoute('/')({ component: Home })
+
+// Staggered hero entry — only plays on mount, not on scroll
+function HeroItem({ children, delay }: { children: React.ReactNode; delay: number }) {
+  const shouldReduceMotion = useReducedMotion();
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, transform: 'translateY(28px)' }}
+      animate={{ opacity: 1, transform: 'translateY(0px)' }}
+      transition={{ duration: 0.7, delay, ease: [0.23, 1, 0.32, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function Home() {
   const [headerTheme, setHeaderTheme] = useState<'light' | 'dark'>('light')
@@ -37,9 +53,9 @@ function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#ff6b4a]/20">
+    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#2c5f4f]/20">
       {/* Top Banner */}
-      <div className="bg-[#FAF2ED] text-xs font-medium py-3 flex justify-center items-center gap-1 cursor-pointer hover:underline text-gray-800">
+      <div className="bg-[#f0f7f4] text-xs font-medium py-3 flex justify-center items-center gap-1 cursor-pointer hover:underline text-gray-800">
         We just shipped new features in Q1. See what's new <ChevronRight className="w-3 h-3 ml-0.5" />
       </div>
 
@@ -49,37 +65,38 @@ function Home() {
           id="main-header"
           className={`max-w-[1200px] mx-auto h-[64px] rounded-full border px-4 md:px-6 flex items-center justify-between transition-all duration-300 backdrop-blur-2xl ${
             headerTheme === 'dark'
-              ? 'bg-[#2b1411]/80 border-white/10 shadow-lg text-white'
-              : 'bg-white/70 border-[#eedad0]/50 shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[#2b1411]'
+              ? 'bg-[#0f2419]/80 border-white/10 shadow-lg text-white'
+              : 'bg-white/70 border-[#c8e0d5]/50 shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-[#0f2419]'
           }`}
         >
           <div className="flex items-center gap-2">
             {/* Logo */}
-            <div className="w-7 h-7 bg-[#ff6b4a] rounded flex flex-col justify-center items-center gap-0.5 shadow-sm">
+            <div className="w-7 h-7 bg-[#2c5f4f] rounded flex flex-col justify-center items-center gap-0.5 shadow-sm">
               <div className="flex gap-0.5">
-                <div className="w-1.5 h-1.5 bg-[#2b1411] rounded-full"></div>
-                <div className="w-1.5 h-1.5 bg-[#2b1411] rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
               </div>
-              <div className="w-1.5 h-1.5 bg-[#2b1411] rounded-full self-start ml-[3px]"></div>
+              <div className="w-1.5 h-1.5 bg-white rounded-full self-start ml-[3px]"></div>
             </div>
             <span className={`font-semibold text-xl tracking-tight ml-1 transition-colors ${
-              headerTheme === 'dark' ? 'text-white' : 'text-[#2b1411]'
+              headerTheme === 'dark' ? 'text-white' : 'text-[#0f2419]'
             }`}>SOMAS</span>
           </div>
           
           <nav className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition-colors ${
-            headerTheme === 'dark' ? 'text-white/90' : 'text-[#2b1411]'
+            headerTheme === 'dark' ? 'text-white/90' : 'text-[#0f2419]'
           }`}>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#ff6b4a]'}`}>Product</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#ff6b4a]'}`}>Modules</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#ff6b4a]'}`}>Field Operations</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#ff6b4a]'}`}>Compliance</a>
-            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#ff6b4a]'}`}>Contact</a>
+            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Product</a>
+            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Modules</a>
+            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Field Operations</a>
+            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Compliance</a>
+            <a href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>Contact</a>
           </nav>
 
           <div className="flex items-center gap-3">
-            <button className="px-5 py-2.5 rounded-full bg-[#ff6b4a] text-[#2b1411] text-[14px] font-semibold hover:bg-[#f05c3c] transition-colors flex items-center gap-2">
-              Request a demo <ArrowRight className="w-4 h-4" />
+            <button className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+              Request a demo
+              <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
             </button>
           </div>
         </div>
@@ -90,72 +107,86 @@ function Home() {
         <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center">
           
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300/80 text-[13px] font-medium text-gray-800 mb-10 hover:border-gray-400 transition-colors cursor-pointer">
-            Social transfer infrastructure for institutions <ArrowRight className="w-3.5 h-3.5" />
-          </div>
+          <HeroItem delay={0}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300/80 text-[13px] font-medium text-gray-800 mb-10 hover:border-gray-400 transition-colors cursor-pointer">
+              Social transfer infrastructure for institutions <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </HeroItem>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#2b1411] leading-[1.05] mb-6">
-            Manage social payments,
-            <br />
-            beneficiaries, and savings
-            <br />
-            <span className="text-[#ff6b4a]">in one secure platform.</span>
-          </h1>
+          <HeroItem delay={0.12}>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#0f2419] leading-[1.05] mb-6">
+              Manage social payments,
+              <br />
+              beneficiaries, and savings
+              <br />
+              <span className="text-[#2c5f4f]">in one secure platform.</span>
+            </h1>
+          </HeroItem>
 
           {/* Subheadline */}
-          <p className="text-base md:text-lg text-gray-600 max-w-[800px] mx-auto leading-relaxed mb-10">
-            SOMAS helps governments, NGOs, and implementation partners run large-scale social transfer programs with operational clarity, real-time monitoring, and audit-ready controls.
-          </p>
+          <HeroItem delay={0.22}>
+            <p className="text-base md:text-lg text-gray-600 max-w-[800px] mx-auto leading-relaxed mb-10">
+              SOMAS helps governments, NGOs, and implementation partners run large-scale social transfer programs with operational clarity, real-time monitoring, and audit-ready controls.
+            </p>
+          </HeroItem>
 
           {/* CTAs */}
-          <div className="flex items-center gap-4">
-            <button className="px-7 py-3.5 rounded-full bg-[#ff6b4a] text-white text-[15px] font-medium hover:bg-[#f05c3c] transition-colors flex items-center gap-2">
-              Request a demo <ArrowRight className="w-4 h-4" />
-            </button>
-            <button className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
-              See how it works
-            </button>
-          </div>
+          <HeroItem delay={0.32}>
+            <div className="flex items-center gap-4">
+              <button className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+                Request a demo
+                <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
+              </button>
+              <button className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
+                See how it works
+              </button>
+            </div>
+          </HeroItem>
 
         </div>
       </main>
 
       {/* Trust / Metrics Section */}
       <section className="px-6 pb-24">
-        <div className="max-w-[1200px] mx-auto bg-[#FAF2ED] rounded-[40px] p-10 md:p-16 relative overflow-hidden">
-          {/* Decorative Sphere using CSS Radial Gradient */}
+        <div className="max-w-[1200px] mx-auto bg-[#f0f7f4] rounded-[40px] p-10 md:p-16 relative overflow-hidden">
+          {/* Decorative Sphere */}
           <div 
             className="absolute -right-[20%] -bottom-[50%] w-[800px] h-[800px] rounded-full opacity-80"
             style={{
-              background: 'radial-gradient(circle at 30% 30%, #fcdfcb 0%, #fab691 40%, #ed976b 80%, #d97f51 100%)',
+              background: 'radial-gradient(circle at 30% 30%, #b8ddc8 0%, #7fbe9e 40%, #4d9a72 80%, #2c7a52 100%)',
               filter: 'blur(10px)'
             }}
           ></div>
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl leading-tight font-bold text-center text-[#2b1411] mb-12 max-w-[800px] mx-auto tracking-tight">
-              Built for structured programs, multi-region operations, and accountable payment delivery.
-            </h2>
+            <FadeUp>
+              <h2 className="text-3xl md:text-4xl leading-tight font-bold text-center text-[#0f2419] mb-12 max-w-[800px] mx-auto tracking-tight">
+                Built for structured programs, multi-region operations, and accountable payment delivery.
+              </h2>
+            </FadeUp>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Card 1 */}
-              <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#ff6b4a] mb-3">$ Millions</div>
-                <div className="text-[15px] font-medium text-gray-800">Total disbursed amount</div>
-              </div>
+              <FadeUp delay={0.06}>
+                <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">$ Millions</div>
+                  <div className="text-[15px] font-medium text-gray-800">Total disbursed amount</div>
+                </div>
+              </FadeUp>
 
-              {/* Card 2 */}
-              <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#ff6b4a] mb-3">1M+</div>
-                <div className="text-[15px] font-medium text-gray-800">Total beneficiaries</div>
-              </div>
+              <FadeUp delay={0.12}>
+                <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">1M+</div>
+                  <div className="text-[15px] font-medium text-gray-800">Total beneficiaries</div>
+                </div>
+              </FadeUp>
 
-              {/* Card 3 */}
-              <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
-                <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#ff6b4a] mb-3">100+</div>
-                <div className="text-[15px] font-medium text-gray-800">Active campaigns</div>
-              </div>
+              <FadeUp delay={0.18}>
+                <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">100+</div>
+                  <div className="text-[15px] font-medium text-gray-800">Active campaigns</div>
+                </div>
+              </FadeUp>
             </div>
           </div>
         </div>
