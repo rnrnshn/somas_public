@@ -1,0 +1,21 @@
+{
+  "projectName": "somas_public",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "npm",
+  "includeExamples": false,
+  "tailwind": true,
+  "addOnOptions": {},
+  "envVarValues": {},
+  "git": true,
+  "install": true,
+  "routerOnly": false,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": [
+    "nitro",
+    "form",
+    "shadcn",
+    "tanstack-query"
+  ]
+}
