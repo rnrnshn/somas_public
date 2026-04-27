@@ -8,10 +8,13 @@ import { CtaSection } from '../components/CtaSection'
 import { Footer } from '../components/Footer'
 import { FadeUp } from '../components/FadeUp'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
+import { SmoothScroll } from '../components/SmoothScroll'
 import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { siteSeo } from '../lib/seo'
 import { landingCopy, type LandingLanguage } from '../lib/landing-copy'
+
+const navTargets = ['#overview', '#problem', '#solution', '#capabilities', '#compliance']
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -73,6 +76,7 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#2c5f4f]/20">
+      <SmoothScroll />
       <LanguageSwitcher language={language} onChange={setLanguage} />
 
       {/* Top Banner */}
@@ -107,22 +111,22 @@ function Home() {
           <nav className={`hidden md:flex items-center gap-7 text-[15px] font-medium transition-colors ${
             headerTheme === 'dark' ? 'text-white/90' : 'text-[#0f2419]'
           }`}>
-            {copy.nav.map((item) => (
-              <a key={item} href="#" className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>{item}</a>
+            {copy.nav.map((item, index) => (
+              <a key={item} href={navTargets[index]} className={`transition-colors ${headerTheme === 'dark' ? 'hover:text-white' : 'hover:text-[#2c5f4f]'}`}>{item}</a>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
-            <button className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+            <a href="#contact" className="group px-5 py-2.5 rounded-full bg-[#2c5f4f] text-white text-[14px] font-semibold hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
               {copy.cta}
               <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
-            </button>
+            </a>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <main className="pt-24 pb-32 px-6">
+      <main id="overview" className="scroll-mt-28 pt-24 pb-32 px-6">
         <div className="max-w-[1000px] mx-auto text-center flex flex-col items-center">
           
           {/* Eyebrow Pill */}
@@ -153,13 +157,13 @@ function Home() {
           {/* CTAs */}
           <HeroItem delay={0.32}>
             <div className="flex items-center gap-4">
-              <button className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
+              <a href="#contact" className="group px-7 py-3.5 rounded-full bg-[#2c5f4f] text-white text-[15px] font-medium hover:bg-[#1e4a3c] transition-colors flex items-center gap-2">
                 {copy.cta}
                 <ArrowRight className="w-4 h-4 transition-transform duration-[160ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1" />
-              </button>
-              <button className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
+              </a>
+              <a href="#solution" className="px-7 py-3.5 rounded-full text-gray-700 text-[15px] font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
                 {copy.secondaryCta}
-              </button>
+              </a>
             </div>
           </HeroItem>
 
@@ -211,11 +215,21 @@ function Home() {
         </div>
       </section>
 
-      <ProblemSection copy={copy.problem} />
-      <SolutionSection copy={copy.solution} />
-      <StackedCardsSection copy={copy.stacked} cta={copy.cta} />
-      <SecuritySection copy={copy.compliance} />
-      <CtaSection copy={copy.finalCta} cta={copy.cta} />
+      <div id="problem" className="scroll-mt-24">
+        <ProblemSection copy={copy.problem} />
+      </div>
+      <div id="solution" className="scroll-mt-24">
+        <SolutionSection copy={copy.solution} />
+      </div>
+      <div id="capabilities" className="scroll-mt-24">
+        <StackedCardsSection copy={copy.stacked} cta={copy.cta} />
+      </div>
+      <div id="compliance" className="scroll-mt-24">
+        <SecuritySection copy={copy.compliance} />
+      </div>
+      <div id="contact" className="scroll-mt-24">
+        <CtaSection copy={copy.finalCta} cta={copy.cta} />
+      </div>
       <Footer copy={copy} />
     </div>
   )

@@ -4,7 +4,7 @@ export const landingCopy = {
   en: {
     languageName: 'English',
     topBanner: "We just shipped new features in Q1. See what's new",
-    nav: ['Product', 'Modules', 'Field Operations', 'Compliance', 'Contact'],
+    nav: ['Overview', 'Problem', 'Solution', 'Capabilities', 'Compliance'],
     cta: 'Request a demo',
     heroEyebrow: 'Social transfer infrastructure for institutions',
     heroTitle: ['Manage social payments,', 'beneficiaries, and savings'],
@@ -93,7 +93,7 @@ export const landingCopy = {
   pt: {
     languageName: 'Português',
     topBanner: 'Lançámos novas funcionalidades no Q1. Veja as novidades',
-    nav: ['Produto', 'Módulos', 'Operações de Campo', 'Conformidade', 'Contacto'],
+    nav: ['Visão geral', 'Problema', 'Solução', 'Capacidades', 'Conformidade'],
     cta: 'Solicitar demonstração',
     heroEyebrow: 'Infraestrutura para transferências sociais institucionais',
     heroTitle: ['Gerencie pagamentos sociais,', 'beneficiários e poupança'],

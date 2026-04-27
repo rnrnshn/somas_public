@@ -1,5 +1,39 @@
 import { Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
 
+const footerLinks = [
+  {
+    title: 'Platform',
+    links: [
+      ['Overview', '#overview'],
+      ['Problem', '#problem'],
+      ['Solution', '#solution'],
+    ],
+  },
+  {
+    title: 'Capabilities',
+    links: [
+      ['Campaign management', '#capabilities'],
+      ['Field operations', '#capabilities'],
+      ['Savings programs', '#capabilities'],
+    ],
+  },
+  {
+    title: 'Trust',
+    links: [
+      ['Compliance', '#compliance'],
+      ['Audit workflows', '#compliance'],
+      ['Role governance', '#compliance'],
+    ],
+  },
+  {
+    title: 'Contact',
+    links: [
+      ['Request a demo', '#contact'],
+      ['Talk to the team', '#contact'],
+    ],
+  },
+];
+
 type Props = {
   copy: {
     footerText: string
@@ -51,28 +85,20 @@ export function Footer({ copy }: Props) {
 
         {/* Middle Section: Links Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
-          
-          <div className="flex flex-col gap-5">
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Legal</a>
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Complaints</a>
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Intellectual property</a>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Privacy policy</a>
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Country site map</a>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Cookie policy</a>
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Modern slavery statement</a>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Research privacy policy</a>
-            <a href="#" className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">Accessibility</a>
-          </div>
-
+          {footerLinks.map((group) => (
+            <div key={group.title} className="flex flex-col gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0f2419]/50">
+                {group.title}
+              </p>
+              <div className="flex flex-col gap-3">
+                {group.links.map(([label, href]) => (
+                  <a key={label} href={href} className="text-[#0f2419] text-[15px] font-medium hover:text-[#2c5f4f] transition-colors">
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Bottom Section: Legal Text */}
