@@ -6,12 +6,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
-
 /* ─── Animation easing tokens (Emil Kowalski) ─── */
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -64,6 +58,22 @@ body {
   animation: problem-tile-fade 2.6s var(--ease-out) infinite;
 }
 
+.stable-pulse-ring,
+.stable-button-pulse {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .stable-pulse-ring {
+    animation: stable-ring-pulse 2.8s var(--ease-out) infinite;
+  }
+
+  .stable-button-pulse {
+    animation: stable-button-pulse 2.4s var(--ease-out) infinite;
+  }
+}
+
 @keyframes problem-bar-rise {
   0%, 12% { transform: scaleY(0.35); opacity: 0.45; }
   45%, 72% { transform: scaleY(1); opacity: 1; }
@@ -97,7 +107,28 @@ body {
   45%, 72% { transform: scale(1); opacity: 1; }
 }
 
+@keyframes stable-ring-pulse {
+  0%, 100% { opacity: 0.16; }
+  50% { opacity: 0.42; }
+}
+
+@keyframes stable-button-pulse {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.28; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .problem-bar,
+  .problem-arrow,
+  .problem-line,
+  .problem-node,
+  .problem-dash,
+  .problem-tile {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
   .problem-bar,
   .problem-arrow,
   .problem-line,

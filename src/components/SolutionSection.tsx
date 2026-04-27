@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Settings, Users, ArrowRightLeft, MapPin, PiggyBank, ShieldCheck } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { FadeUp } from './FadeUp';
 
 function cn(...inputs: (string | undefined | null | false)[]) {
@@ -72,7 +71,7 @@ function SolutionVisual({ activeTab }: { activeTab: number }) {
                 return <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#2c5f4f]" strokeWidth={1.5} />;
              })()}
           </div>
-          <div className="absolute inset-0 rounded-3xl border border-[#2c5f4f] animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
+          <div className="stable-pulse-ring absolute inset-0 rounded-3xl border border-[#2c5f4f]/20"></div>
         </div>
 
         <div className={cn(
@@ -184,25 +183,16 @@ export function SolutionSection({ copy }: Props) {
                       style={{ transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)' }}
                     >
                       <div className="overflow-hidden">
-                        <AnimatePresence mode="wait">
-                          {isActive && (
-                            <motion.div
-                              key={index}
-                              className="pr-0 md:pr-8"
-                              initial={{ opacity: 0, transform: 'translateY(6px)' }}
-                              animate={{ opacity: 1, transform: 'translateY(0px)' }}
-                              exit={{ opacity: 0, transform: 'translateY(-4px)' }}
-                              transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-                            >
-                              <p className="text-[17px] text-gray-600 leading-relaxed">
-                                {copy.features[index]?.[1] ?? feature.description}
-                              </p>
-                              <div className="mt-6 block lg:hidden">
-                                <SolutionVisual activeTab={index} />
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        {isActive && (
+                          <div className="pr-0 md:pr-8">
+                            <p className="text-[17px] text-gray-600 leading-relaxed">
+                              {copy.features[index]?.[1] ?? feature.description}
+                            </p>
+                            <div className="mt-6 block lg:hidden">
+                              <SolutionVisual activeTab={index} />
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

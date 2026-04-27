@@ -10,7 +10,7 @@ import { FadeUp } from '../components/FadeUp'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import { SmoothScroll } from '../components/SmoothScroll'
 import { useState, useEffect } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { siteSeo } from '../lib/seo'
 import { landingCopy, type LandingLanguage } from '../lib/landing-copy'
 
@@ -32,34 +32,8 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-// Staggered hero entry — only plays on mount, not on scroll
-function HeroItem({ children, delay }: { children: React.ReactNode; delay: number }) {
-  const shouldReduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
-    const handleChange = () => setIsMobile(mediaQuery.matches);
-
-    handleChange();
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  if (isMobile || shouldReduceMotion) {
-    return <>{children}</>;
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, transform: 'translateY(28px)' }}
-      animate={{ opacity: 1, transform: 'translateY(0px)' }}
-      transition={{ duration: 0.7, delay, ease: [0.23, 1, 0.32, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+function HeroItem({ children }: { children: React.ReactNode; delay: number }) {
+  return <>{children}</>;
 }
 
 function Home() {
@@ -160,7 +134,7 @@ function Home() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 min-h-[100dvh] w-screen max-w-full overflow-hidden overscroll-contain bg-[#0f2419] text-white md:hidden"
+            className="fixed inset-0 z-40 min-h-[100dvh] w-full max-w-full overflow-hidden overscroll-contain bg-[#0f2419] text-white md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -37,7 +37,7 @@ const cards = [
     visual: (
       <div className="relative h-full w-full flex items-center justify-center opacity-80">
         <div className="w-20 h-20 border-4 border-[color:var(--problem-accent-soft)] rounded-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent animate-spin flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent md:animate-spin flex items-center justify-center">
              <span className="text-[var(--problem-accent)] font-bold text-xl animate-none">!</span>
           </div>
         </div>
@@ -116,17 +116,12 @@ export function ProblemSection({ copy }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
-
-    const handleResize = () => {
-      setIsMobile(mediaQuery.matches);
-    };
-
     const handleScroll = () => {
       if (!containerRef.current) return;
+      if (window.matchMedia('(max-width: 767px)').matches) return;
+
       const { top, height } = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
@@ -140,25 +135,70 @@ export function ProblemSection({ copy }: Props) {
       setActiveIndex(Math.min(cards.length - 1, Math.floor(currentProgress * cards.length)));
     };
     
-    handleResize();
-    mediaQuery.addEventListener('change', handleResize);
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => {
-      mediaQuery.removeEventListener('change', handleResize);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const renderCard = (card: (typeof cards)[number], index: number, className = '') => (
+    <div
+      key={index}
+      className={cn(
+        "rounded-[2rem] p-6 md:p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5",
+        className
+      )}
+      style={{
+        '--problem-accent': accentColors[index],
+        '--problem-accent-soft': `${accentColors[index]}4d`,
+        '--problem-accent-glow': accentGlowColors[index],
+      } as CSSProperties}
+    >
+      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+      <div className="flex-1 relative mb-4 md:mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
+        {card.visual}
+      </div>
+      <p className="text-white/90 text-[17px] md:text-[19px] font-medium leading-[1.25] md:leading-[1.3] relative z-10">
+        {copy.cards[index] ?? card.text}
+      </p>
+    </div>
+  );
+
+  const mobileCards = cards.map((card, index) => renderCard(
+    card,
+    index,
+    'relative shrink-0 w-[82vw] max-w-[340px] aspect-[4/3]'
+  ));
 
   return (
     <div 
       ref={containerRef} 
       // 500vh ensures a long scroll area for the 5 cards
-      className="relative h-[500vh] w-full"
+      className="relative w-full md:h-[500vh]"
     >
+      <div className="block md:hidden bg-[#111e18] text-white px-6 py-24" data-theme="dark">
+        <div className="inline-block px-5 py-1.5 rounded-full border border-white/20 text-xs font-medium tracking-wide mb-8">
+          {copy.eyebrow}
+        </div>
+        <h2 className="text-2xl leading-[1.05] font-medium mb-6 tracking-tight">
+          {copy.title}
+          <br />
+          <span className="text-white/80">{copy.muted}</span>
+        </h2>
+        <p className="text-white/60 text-[16px] leading-relaxed max-w-lg mb-10">
+          {copy.body}
+        </p>
+        <div className="flex w-full max-w-full gap-5 overflow-x-auto overscroll-x-contain pb-4 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {mobileCards.map((card) => (
+            <div key={card.key} className="snap-start">
+              {card}
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div 
         className={cn(
-          "sticky top-0 h-screen w-full overflow-hidden transition-colors duration-1000 ease-in-out",
+          "hidden md:block sticky top-0 h-screen w-full overflow-hidden transition-colors duration-1000 ease-in-out",
           bgColors[activeIndex] || bgColors[0]
         )}
         data-theme="dark"
@@ -191,22 +231,18 @@ export function ProblemSection({ copy }: Props) {
               // offset is the distance from the currently active index
               const offset = index - progressVal;
               
-              const translateY = isMobile ? 0 : offset * 450;
-              const translateX = isMobile ? offset * 340 : Math.abs(offset) * 80;
-              const rotateZ = isMobile ? 0 : offset * 12;
+              const translateY = offset * 450;
+              const translateX = Math.abs(offset) * 80;
+              const rotateZ = offset * 12;
               
-              const opacity = isMobile
-                ? Math.max(0, 1 - Math.abs(offset) * 0.45)
-                : Math.max(0, 1 - Math.abs(offset) * 0.7);
-              const scale = isMobile
-                ? Math.max(0.88, 1 - Math.abs(offset) * 0.06)
-                : Math.max(0.8, 1 - Math.abs(offset) * 0.1);
-              const zIndex = isMobile ? index + 10 : 10 - Math.round(Math.abs(offset));
+              const opacity = Math.max(0, 1 - Math.abs(offset) * 0.7);
+              const scale = Math.max(0.8, 1 - Math.abs(offset) * 0.1);
+              const zIndex = 10 - Math.round(Math.abs(offset));
 
               return (
-                <div 
+                <div
                   key={index}
-                  className="absolute left-0 md:left-auto w-[82vw] md:w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-6 md:p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
+                  className="absolute w-[90%] max-w-[420px] aspect-[4/3] rounded-[2rem] p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5"
                   style={{
                     '--problem-accent': accentColors[index],
                     '--problem-accent-soft': `${accentColors[index]}4d`,
@@ -217,15 +253,11 @@ export function ProblemSection({ copy }: Props) {
                     willChange: 'transform, opacity',
                   } as CSSProperties}
                 >
-                  {/* Glassy reflection top edge */}
                   <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                  
-                  {/* Decorative visual area */}
-                  <div className="flex-1 relative mb-4 md:mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
+                  <div className="flex-1 relative mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
                     {card.visual}
                   </div>
-                  
-                  <p className="text-white/90 text-[17px] md:text-[19px] font-medium leading-[1.25] md:leading-[1.3] relative z-10">
+                  <p className="text-white/90 text-[19px] font-medium leading-[1.3] relative z-10">
                     {copy.cards[index] ?? card.text}
                   </p>
                 </div>
