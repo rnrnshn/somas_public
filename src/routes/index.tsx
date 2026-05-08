@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, Menu, X } from 'lucide-react'
+import { MissionSection } from '../components/MissionSection'
 import { ProblemSection } from '../components/ProblemSection'
 import { SolutionSection } from '../components/SolutionSection'
 import { StackedCardsSection } from '../components/StackedCardsSection'
 import { SecuritySection } from '../components/SecuritySection'
+import { PricingSection } from '../components/PricingSection'
 import { CtaSection } from '../components/CtaSection'
 import { Footer } from '../components/Footer'
 import { FadeUp } from '../components/FadeUp'
@@ -14,7 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { siteSeo } from '../lib/seo'
 import { landingCopy, type LandingLanguage } from '../lib/landing-copy'
 
-const navTargets = ['#overview', '#problem', '#solution', '#capabilities', '#compliance']
+const navTargets = ['#overview', '#how-it-works', '#solution', '#capabilities', '#pricing', '#contact']
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -191,8 +193,12 @@ function Home() {
               {copy.heroTitle[0]}
               <br />
               {copy.heroTitle[1]}
-              <br />
-              <span className="text-[#2c5f4f]">{copy.heroAccent}</span>
+              {copy.heroAccent && (
+                <>
+                  <br />
+                  <span className="text-[#2c5f4f]">{copy.heroAccent}</span>
+                </>
+              )}
             </h1>
           </HeroItem>
 
@@ -238,7 +244,7 @@ function Home() {
               </h2>
             </FadeUp>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <FadeUp delay={0.06}>
                 <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
                   <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">{copy.metrics[0]}</div>
@@ -259,12 +265,21 @@ function Home() {
                   <div className="text-[15px] font-medium text-gray-800">{copy.metricLabels[2]}</div>
                 </div>
               </FadeUp>
+
+              <FadeUp delay={0.24}>
+                <div className="bg-white/40 border border-white/60 rounded-[24px] p-8 backdrop-blur-md shadow-sm">
+                  <div className="text-4xl md:text-[2.75rem] font-medium tracking-tight text-[#2c5f4f] mb-3">{copy.metrics[3]}</div>
+                  <div className="text-[15px] font-medium text-gray-800">{copy.metricLabels[3]}</div>
+                </div>
+              </FadeUp>
             </div>
           </div>
         </div>
       </section>
 
-      <div id="problem" className="scroll-mt-24">
+      <MissionSection copy={copy.mission} />
+
+      <div id="how-it-works" className="scroll-mt-24">
         <ProblemSection copy={copy.problem} />
       </div>
       <div id="solution" className="scroll-mt-24">
@@ -274,10 +289,11 @@ function Home() {
         <StackedCardsSection copy={copy.stacked} cta={copy.cta} />
       </div>
       <div id="compliance" className="scroll-mt-24">
-        <SecuritySection copy={copy.compliance} />
+        <SecuritySection copy={copy.useCases} />
       </div>
+      <PricingSection copy={copy.pricing} />
       <div id="contact" className="scroll-mt-24">
-        <CtaSection copy={copy.finalCta} cta={copy.cta} />
+        <CtaSection copy={copy.contact} />
       </div>
       <Footer copy={copy} />
     </div>

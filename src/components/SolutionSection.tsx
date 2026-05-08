@@ -11,32 +11,27 @@ function cn(...inputs: (string | undefined | null | false)[]) {
 const features = [
   {
     title: "Campaign Management",
-    description: "Plan and monitor programs by region, payment channel, timeline, status, and beneficiary coverage.",
+    description: "Plan, segment, and monitor programs by region, payment channel, timeline, and beneficiary cohort.",
     icon: Settings
   },
   {
     title: "Beneficiary Operations",
-    description: "Maintain beneficiary records, campaign associations, verification status, disbursement history, and savings participation.",
+    description: "Maintain complete records — identification, wallet validation, disbursement history, and savings participation.",
     icon: Users
   },
   {
     title: "Mass Disbursements",
-    description: "Track transactions from initiation to confirmation, including pending, successful, failed, and retried payments.",
+    description: "Bulk transfers via M-Pesa, e-Mola, and mKesh — with real-time confirmation and fallback handling for failed transfers.",
     icon: ArrowRightLeft
   },
   {
     title: "Field Verification",
-    description: "Give field teams simple workflows to search, confirm, and verify beneficiaries on site.",
+    description: "Mobile-first workflows for field agents to search, confirm, and sync beneficiary data — even in low-connectivity areas.",
     icon: MapPin
   },
   {
-    title: "Savings Programs",
-    description: "Monitor savings participation, beneficiary savings totals, and campaign-level savings performance.",
-    icon: PiggyBank
-  },
-  {
     title: "Audit & Compliance",
-    description: "Keep a clear record of user activity, data changes, permissions, and operational events.",
+    description: "Role-based permissions, activity logs, and transaction records — built for donor-grade transparency.",
     icon: ShieldCheck
   }
 ];

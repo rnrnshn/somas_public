@@ -9,98 +9,116 @@ function cn(...inputs: (string | undefined | null | false)[]) {
 
 const cards = [
   {
-    text: "Beneficiary data becomes difficult to validate and update.",
+    title: "Register Beneficiaries",
+    label: "Field App",
+    text: "Field agents onboard beneficiaries, capture ID and wallet data, and segment by program criteria — online or offline.",
     visual: (
-      <div className="flex gap-3 items-end h-full w-full pb-6 opacity-80 px-4">
-        <div className="problem-bar w-1/4 bg-white/20 rounded-t-md [--bar-height:30%] [--bar-delay:0ms]"></div>
-        <div className="problem-bar w-1/4 bg-white/40 rounded-t-md [--bar-height:50%] [--bar-delay:140ms]"></div>
-        <div className="problem-bar w-1/4 bg-[var(--problem-accent)] rounded-t-md relative [--bar-height:80%] [--bar-delay:280ms]">
-          <div className="problem-arrow absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-[var(--problem-accent)]"></div>
-        </div>
-        <div className="problem-bar w-1/4 bg-white/20 rounded-t-md [--bar-height:60%] [--bar-delay:420ms]"></div>
-      </div>
-    )
-  },
-  {
-    text: "Campaign progress is hard to monitor across regions.",
-    visual: (
-      <div className="relative w-full h-full flex items-center justify-center opacity-80">
-        <svg viewBox="0 0 100 50" className="w-full h-auto fill-none stroke-[2] stroke-linecap-round stroke-linejoin-round">
-          <path className="problem-line stroke-[var(--problem-accent)]" pathLength="1" d="M5,40 Q20,10 35,30 T65,20 T95,10" />
-          <path className="problem-line problem-line-muted stroke-white/30" pathLength="1" d="M5,45 Q25,20 40,35 T70,25 T95,5" />
-        </svg>
-      </div>
-    )
-  },
-  {
-    text: "Payment exceptions are discovered too late.",
-    visual: (
-      <div className="relative h-full w-full flex items-center justify-center opacity-80">
-        <div className="w-20 h-20 border-4 border-[color:var(--problem-accent-soft)] rounded-full flex items-center justify-center">
-          <div className="w-16 h-16 border-4 border-[var(--problem-accent)] rounded-full border-t-transparent animate-spin flex items-center justify-center">
-             <span className="text-[var(--problem-accent)] font-bold text-xl animate-none">!</span>
+      <div className="flex items-center justify-center h-full w-full opacity-80">
+        <div className="relative w-20 h-24 bg-white/5 rounded-xl border border-white/15 p-3 flex flex-col items-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center">
+            <svg className="w-5 h-5 text-white/40" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <div className="w-full space-y-1.5">
+            <div className="h-1 bg-white/20 rounded w-full"></div>
+            <div className="h-1 bg-white/10 rounded w-3/4"></div>
+            <div className="h-1 bg-white/10 rounded w-1/2"></div>
           </div>
         </div>
       </div>
     )
   },
   {
-    text: "Field verification is disconnected from backoffice decisions.",
+    title: "Configure Campaigns",
+    label: "Backoffice",
+    text: "Define disbursement amounts, frequency, eligible cohorts, and regional scope. Prepare bulk payment lists in minutes.",
     visual: (
-      <div className="flex items-center justify-between h-full w-full opacity-80 px-8">
-        <div className="problem-node w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center">
-          <div className="w-6 h-6 rounded-sm bg-white/40"></div>
+      <div className="flex flex-col items-center justify-center h-full w-full opacity-80 gap-3 px-6">
+        <div className="w-10 h-10 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
+          <svg className="w-5 h-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
         </div>
-        <div className="problem-dash flex-1 h-0.5 border-t-2 border-dashed border-white/20 mx-4"></div>
-        <div className="problem-node problem-node-delay w-12 h-12 rounded-full bg-[var(--problem-accent)] flex items-center justify-center shadow-[0_0_15px_var(--problem-accent-glow)]">
-           <div className="w-4 h-4 rounded-full bg-white"></div>
+        <div className="w-full max-w-[120px] space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-sm bg-[var(--problem-accent)]"></div>
+            <div className="flex-1 h-0.5 bg-white/20 rounded"></div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-sm bg-[var(--problem-accent)]"></div>
+            <div className="flex-1 h-0.5 bg-white/20 rounded"></div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-sm border border-white/20"></div>
+            <div className="flex-1 h-0.5 bg-white/20 rounded"></div>
+          </div>
         </div>
       </div>
     )
   },
   {
-    text: "Audit evidence is scattered across multiple systems.",
+    title: "Execute Transfers",
+    label: "Multi-Wallet",
+    text: "Bulk disbursements go directly to M-Pesa, e-Mola, or mKesh wallets. Failed transfers are flagged instantly with fallback options.",
     visual: (
-      <div className="grid grid-cols-4 gap-2 h-full w-full content-center opacity-80 px-4">
-        {[...Array(12)].map((_, i) => (
-          <div 
-            key={i} 
-            className={cn(
-              "problem-tile h-8 rounded-sm", 
-              [2, 5, 8, 10].includes(i) ? "bg-[var(--problem-accent)]" : "bg-white/10",
-              [1, 4, 9].includes(i) ? "bg-white/30" : ""
-            )}
-            style={{ animationDelay: `${i * 90}ms` }}
-          ></div>
-        ))}
+      <div className="flex items-center justify-center h-full w-full opacity-80 gap-3 px-4">
+        <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+          <div className="w-6 h-4 rounded-sm bg-white/20"></div>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-8 h-0.5 bg-[var(--problem-accent)]"></div>
+          <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-[var(--problem-accent)]"></div>
+        </div>
+        <div className="w-12 h-12 rounded-xl bg-[var(--problem-accent)]/20 border border-[var(--problem-accent)]/30 flex items-center justify-center">
+          <div className="w-6 h-4 rounded-sm bg-[var(--problem-accent)]/40"></div>
+        </div>
+      </div>
+    )
+  },
+  {
+    title: "Monitor & Report",
+    label: "Real-Time",
+    text: "Live dashboards track success rates, beneficiary reach, and fund traceability. Export audit-ready reports for donors at any time.",
+    visual: (
+      <div className="flex items-end justify-center h-full w-full opacity-80 pb-4 px-6 gap-2">
+        <div className="w-3 bg-white/20 rounded-t-sm h-[30%]"></div>
+        <div className="w-3 bg-white/30 rounded-t-sm h-[50%]"></div>
+        <div className="w-3 bg-[var(--problem-accent)] rounded-t-sm h-[80%]"></div>
+        <div className="w-3 bg-white/20 rounded-t-sm h-[60%]"></div>
+        <div className="w-3 bg-white/30 rounded-t-sm h-[45%]"></div>
       </div>
     )
   }
 ];
 
 const bgColors = [
-  "bg-[#111e18]", // Dark Greenish
-  "bg-[#2a1310]", // Maroon
-  "bg-[#191124]", // Dark Purple
-  "bg-[#211815]", // Dark Brown
-  "bg-[#0f172a]"  // Slate
+  "bg-[#111e18]", // Dark Green
+  "bg-[#0f1a2e]", // Dark Blue
+  "bg-[#1e1811]", // Dark Amber
+  "bg-[#0f2a2a]"  // Dark Teal
 ];
 
 const accentColors = [
   '#2c5f4f',
-  '#ef6f61',
-  '#8b5cf6',
-  '#d08a4d',
-  '#38bdf8',
+  '#3b82f6',
+  '#f59e0b',
+  '#14b8a6',
 ];
 
 const accentGlowColors = [
   'rgba(44,95,79,0.5)',
-  'rgba(239,111,97,0.5)',
-  'rgba(139,92,246,0.5)',
-  'rgba(208,138,77,0.5)',
-  'rgba(56,189,248,0.5)',
+  'rgba(59,130,246,0.5)',
+  'rgba(245,158,11,0.5)',
+  'rgba(20,184,166,0.5)',
 ];
+
+type StepCard = {
+  title: string
+  label: string
+  text: string
+}
 
 type Props = {
   copy: {
@@ -108,7 +126,7 @@ type Props = {
     title: string
     muted: string
     body: string
-    cards: readonly string[]
+    cards: readonly StepCard[]
   }
 }
 
@@ -141,28 +159,42 @@ export function ProblemSection({ copy }: Props) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const renderCard = (card: (typeof cards)[number], index: number, className = '') => (
-    <div
-      key={index}
-      className={cn(
-        "rounded-[2rem] p-6 md:p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5",
-        className
-      )}
-      style={{
-        '--problem-accent': accentColors[index],
-        '--problem-accent-soft': `${accentColors[index]}4d`,
-        '--problem-accent-glow': accentGlowColors[index],
-      } as CSSProperties}
-    >
-      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-      <div className="flex-1 relative mb-4 md:mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
-        {card.visual}
+  const renderCard = (card: (typeof cards)[number], index: number, className = '') => {
+    const cardData = copy.cards[index] ?? card;
+    return (
+      <div
+        key={index}
+        className={cn(
+          "rounded-[2rem] p-6 md:p-8 shadow-2xl flex flex-col justify-between overflow-hidden bg-[#182118] border border-white/5",
+          className
+        )}
+        style={{
+          '--problem-accent': accentColors[index],
+          '--problem-accent-soft': `${accentColors[index]}4d`,
+          '--problem-accent-glow': accentGlowColors[index],
+        } as CSSProperties}
+      >
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div className="flex-1 relative mb-4 md:mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
+          {card.visual}
+        </div>
+        <div className="relative z-10">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="text-white/30 text-sm font-mono font-medium">0{index + 1}</span>
+            <span className="text-white font-semibold text-base">{cardData.title}</span>
+          </div>
+          <p className="text-white/70 text-[15px] leading-relaxed">
+            {cardData.text}
+          </p>
+          <div className="mt-2.5">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/10 text-white/50 text-xs font-medium">
+              {cardData.label}
+            </span>
+          </div>
+        </div>
       </div>
-      <p className="text-white/90 text-[17px] md:text-[19px] font-medium leading-[1.25] md:leading-[1.3] relative z-10">
-        {copy.cards[index] ?? card.text}
-      </p>
-    </div>
-  );
+    );
+  };
 
   const goToPreviousMobileCard = () => {
     setMobileActiveIndex((index) => (index === 0 ? cards.length - 1 : index - 1));
@@ -175,8 +207,8 @@ export function ProblemSection({ copy }: Props) {
   return (
     <div 
       ref={containerRef} 
-      // 500vh ensures a long scroll area for the 5 cards
-      className="relative w-full md:h-[500vh]"
+      // 400vh ensures a long scroll area for the 4 cards
+      className="relative w-full md:h-[400vh]"
     >
       <div
         className={cn(
@@ -209,12 +241,12 @@ export function ProblemSection({ copy }: Props) {
               type="button"
               onClick={goToPreviousMobileCard}
               className="h-11 w-11 rounded-full border border-white/20 text-xl text-white transition-colors hover:bg-white/10"
-              aria-label="Previous problem card"
+              aria-label="Previous step"
             >
               ←
             </button>
 
-            <div className="flex items-center gap-2" aria-label="Problem cards">
+            <div className="flex items-center gap-2" aria-label="Steps">
               {cards.map((_, index) => (
                 <button
                   key={index}
@@ -224,7 +256,7 @@ export function ProblemSection({ copy }: Props) {
                     "h-2.5 rounded-full transition-all",
                     index === mobileActiveIndex ? "w-8 bg-white" : "w-2.5 bg-white/30"
                   )}
-                  aria-label={`Show problem card ${index + 1}`}
+                  aria-label={`Show step ${index + 1}`}
                   aria-current={index === mobileActiveIndex ? 'true' : undefined}
                 />
               ))}
@@ -234,7 +266,7 @@ export function ProblemSection({ copy }: Props) {
               type="button"
               onClick={goToNextMobileCard}
               className="h-11 w-11 rounded-full border border-white/20 text-xl text-white transition-colors hover:bg-white/10"
-              aria-label="Next problem card"
+              aria-label="Next step"
             >
               →
             </button>
@@ -285,6 +317,7 @@ export function ProblemSection({ copy }: Props) {
               const scale = Math.max(0.8, 1 - Math.abs(offset) * 0.1);
               const zIndex = 10 - Math.round(Math.abs(offset));
 
+              const cardData = copy.cards[index] ?? card;
               return (
                 <div
                   key={index}
@@ -300,12 +333,23 @@ export function ProblemSection({ copy }: Props) {
                   } as CSSProperties}
                 >
                   <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                  <div className="flex-1 relative mb-6 rounded-xl bg-white/5 p-4 flex items-center justify-center">
+                  <div className="flex-1 relative mb-4 rounded-xl bg-white/5 p-4 flex items-center justify-center">
                     {card.visual}
                   </div>
-                  <p className="text-white/90 text-[19px] font-medium leading-[1.3] relative z-10">
-                    {copy.cards[index] ?? card.text}
-                  </p>
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-white/30 text-sm font-mono font-medium">0{index + 1}</span>
+                      <span className="text-white font-semibold text-base">{cardData.title}</span>
+                    </div>
+                    <p className="text-white/70 text-[15px] leading-relaxed">
+                      {cardData.text}
+                    </p>
+                    <div className="mt-2.5">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/10 text-white/50 text-xs font-medium">
+                        {cardData.label}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               );
             })}
